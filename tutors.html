@@ -1,1 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Browse Tutors – TutorCon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0A1628;--navy-mid:#132040;--gold:#D4A017;--gold-light:#F0C040;--cream:#FAF7F0;--white:#FFFFFF;--slate:#6B7A99;--green:#1A8C5B;--green-light:#22A86E;--red:#C0392B;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,22,40,0.97);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;border-bottom:2px solid var(--gold);}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-icon{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--navy);}
+    .nav-logo span{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700;}
+    .con{color:var(--gold);}
+    .nav-links{display:flex;gap:28px;align-items:center;}
+    .nav-links a{text-decoration:none;color:rgba(255,255,255,0.8);font-size:0.9rem;font-weight:500;transition:color 0.2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+    .nav-user{display:flex;align-items:center;gap:14px;}
+    .btn-login{padding:8px 20px;border:1.5px solid var(--gold);color:var(--gold);border-radius:6px;text-decoration:none;font-weight:600;font-size:0.85rem;transition:all 0.2s;}
+    .btn-login:hover{background:var(--gold);color:var(--navy);}
+    .user-pill{background:rgba(212,160,23,0.15);border:1px solid rgba(212,160,23,0.3);color:var(--gold);padding:6px 14px;border-radius:50px;font-size:0.82rem;font-weight:600;}
 
+    /* HERO BAND */
+    .hero-band{margin-top:68px;background:var(--navy);padding:48px 5% 40px;}
+    .hero-band h1{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--white);margin-bottom:8px;}
+    .hero-band h1 em{color:var(--gold);font-style:normal;}
+    .hero-band p{color:rgba(255,255,255,0.6);font-size:1rem;}
+    .quick-stats{display:flex;gap:32px;margin-top:24px;flex-wrap:wrap;}
+    .qs{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:14px 20px;display:flex;align-items:center;gap:12px;}
+    .qs-num{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);font-weight:700;}
+    .qs-lbl{color:rgba(255,255,255,0.6);font-size:0.8rem;}
+
+    /* SEARCH + FILTERS */
+    .search-bar{background:var(--white);padding:20px 5%;border-bottom:1px solid rgba(0,0,0,0.06);display:flex;gap:14px;align-items:center;flex-wrap:wrap;position:sticky;top:68px;z-index:500;box-shadow:0 2px 10px rgba(0,0,0,0.06);}
+    .search-input-wrap{flex:1;min-width:220px;position:relative;}
+    .search-input-wrap input{width:100%;padding:11px 16px 11px 42px;border:1.5px solid rgba(10,22,40,0.15);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.9rem;background:var(--cream);color:var(--navy);outline:none;transition:border-color 0.2s;}
+    .search-input-wrap input:focus{border-color:var(--gold);}
+    .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--slate);font-size:1rem;}
+    .filter-select{padding:11px 16px;border:1.5px solid rgba(10,22,40,0.15);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--navy);background:var(--cream);outline:none;cursor:pointer;transition:border-color 0.2s;}
+    .filter-select:focus{border-color:var(--gold);}
+    .filter-count{background:var(--navy);color:var(--white);padding:8px 18px;border-radius:10px;font-size:0.85rem;font-weight:600;white-space:nowrap;}
+
+    /* LAYOUT */
+    .main-layout{display:grid;grid-template-columns:240px 1fr;gap:0;min-height:calc(100vh - 68px);}
+    .sidebar{background:var(--white);padding:28px 24px;border-right:1px solid rgba(0,0,0,0.06);position:sticky;top:138px;height:fit-content;}
+    .sidebar-section{margin-bottom:28px;}
+    .sidebar-title{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:14px;}
+    .sidebar-option{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:0.88rem;color:var(--slate);transition:all 0.15s;}
+    .sidebar-option:hover,.sidebar-option.active{background:rgba(212,160,23,0.1);color:var(--navy);font-weight:600;}
+    .sidebar-option input[type="checkbox"]{accent-color:var(--gold);width:15px;height:15px;}
+    .sidebar-option .count{margin-left:auto;background:rgba(10,22,40,0.08);padding:2px 8px;border-radius:50px;font-size:0.75rem;color:var(--slate);}
+    .price-row{display:flex;gap:10px;align-items:center;}
+    .price-input{width:90px;padding:8px 10px;border:1.5px solid rgba(10,22,40,0.15);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--navy);background:var(--cream);outline:none;}
+    .price-input:focus{border-color:var(--gold);}
+
+    /* TUTORS GRID */
+    .tutors-content{padding:28px 32px;}
+    .results-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+    .results-header h3{font-size:1rem;font-weight:700;color:var(--navy);}
+    .results-header p{color:var(--slate);font-size:0.85rem;}
+    .sort-wrap select{padding:8px 14px;border:1.5px solid rgba(10,22,40,0.12);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--navy);background:var(--cream);outline:none;}
+    .grid-tutors{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;}
+
+    /* TUTOR CARD */
+    .tc{background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,0.07);overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;cursor:pointer;}
+    .tc:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,0.1);}
+    .tc-top{padding:24px 24px 0;display:flex;align-items:flex-start;gap:14px;}
+    .tc-avatar{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;flex-shrink:0;}
+    .tc-meta{flex:1;}
+    .tc-badge{display:inline-block;padding:2px 10px;border-radius:50px;font-size:0.7rem;font-weight:700;margin-bottom:6px;}
+    .badge-premium{background:var(--gold);color:var(--navy);}
+    .badge-basic{background:rgba(107,122,153,0.15);color:var(--slate);}
+    .tc-name{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .tc-subject{font-size:0.82rem;color:var(--gold);font-weight:600;margin-bottom:2px;}
+    .tc-inst{font-size:0.78rem;color:var(--slate);}
+    .tc-body{padding:14px 24px 20px;}
+    .tc-stars{color:var(--gold);font-size:0.88rem;margin-bottom:6px;}
+    .tc-stars span{color:var(--slate);font-size:0.8rem;margin-left:4px;}
+    .tc-bio{font-size:0.83rem;color:var(--slate);line-height:1.5;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+    .tc-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+    .pill{background:rgba(10,22,40,0.06);padding:3px 10px;border-radius:50px;font-size:0.74rem;color:var(--slate);font-weight:500;}
+    .tc-footer{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid rgba(0,0,0,0.06);}
+    .tc-rate{font-size:1rem;font-weight:700;color:var(--navy);}
+    .tc-rate span{font-size:0.78rem;font-weight:400;color:var(--slate);}
+    .btn-book{padding:8px 18px;background:var(--navy);color:var(--white);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+    .btn-book:hover{background:var(--gold);color:var(--navy);}
+
+    /* MODAL */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;}
+    .modal-overlay.open{display:flex;}
+    .modal{background:var(--white);border-radius:20px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;position:relative;}
+    .modal-close{position:absolute;top:16px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--slate);}
+    .modal-header{background:var(--navy);padding:32px;border-radius:20px 20px 0 0;}
+    .modal-avatar{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;margin-bottom:14px;}
+    .modal-name{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--white);}
+    .modal-sub{color:var(--gold);font-size:0.9rem;font-weight:600;margin-top:4px;}
+    .modal-body{padding:28px 32px;}
+    .modal-section-title{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin:20px 0 10px;}
+    .modal-body p{color:var(--slate);font-size:0.92rem;line-height:1.65;}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+    .detail-item{background:var(--cream);border-radius:10px;padding:14px;}
+    .detail-item .lbl{font-size:0.75rem;color:var(--slate);margin-bottom:4px;}
+    .detail-item .val{font-weight:700;color:var(--navy);font-size:0.95rem;}
+    .book-btn{width:100%;padding:14px;background:var(--gold);color:var(--navy);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;margin-top:6px;}
+    .book-btn:hover{background:var(--gold-light);transform:translateY(-1px);}
+    .review-card{background:var(--cream);border-radius:10px;padding:14px;margin-bottom:10px;}
+    .review-card .stars{color:var(--gold);font-size:0.82rem;margin-bottom:4px;}
+    .review-card p{font-size:0.85rem;color:var(--navy);margin-bottom:6px;}
+    .review-card .reviewer{font-size:0.78rem;color:var(--slate);}
+
+    @media(max-width:900px){.main-layout{grid-template-columns:1fr;}.sidebar{display:none;}.tutors-content{padding:20px;}}
+    @media(max-width:600px){.nav-links{display:none;}.quick-stats{gap:12px;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">T</div>
+    <span>Tutor<span class="con">Con</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="tutors.html" class="active">Find Tutors</a>
+    <a href="about.html">About Us</a>
+  </div>
+  <div class="nav-user" id="navUser">
+    <a href="login.html" class="btn-login">Log In</a>
+  </div>
+</nav>
+
+<div class="hero-band">
+  <h1>Find Your <em>Perfect Tutor</em></h1>
+  <p>Browse verified tutors from all major Gaborone institutions</p>
+  <div class="quick-stats">
+    <div class="qs"><div class="qs-num" id="totalCount">12</div><div class="qs-lbl">Tutors Available</div></div>
+    <div class="qs"><div class="qs-num">8</div><div class="qs-lbl">Institutions</div></div>
+    <div class="qs"><div class="qs-num">4.8★</div><div class="qs-lbl">Avg Rating</div></div>
+  </div>
+</div>
+
+<div class="search-bar">
+  <div class="search-input-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search by name, subject or institution…" oninput="filterTutors()"/>
+  </div>
+  <select class="filter-select" id="subjectFilter" onchange="filterTutors()">
+    <option value="">All Subjects</option>
+    <option>Mathematics</option>
+    <option>Statistics</option>
+    <option>Computer Science</option>
+    <option>Accounting</option>
+    <option>Finance</option>
+    <option>Biology</option>
+    <option>Chemistry</option>
+    <option>Physics</option>
+    <option>Economics</option>
+    <option>Business Studies</option>
+    <option>English</option>
+  </select>
+  <select class="filter-select" id="instFilter" onchange="filterTutors()">
+    <option value="">All Institutions</option>
+    <option>UB</option>
+    <option>BUAN</option>
+    <option>Botho</option>
+    <option>BAC</option>
+    <option>ABM</option>
+    <option>BCET</option>
+    <option>Limkokwing</option>
+  </select>
+  <select class="filter-select" id="planFilter" onchange="filterTutors()">
+    <option value="">All Plans</option>
+    <option>premium</option>
+    <option>basic</option>
+  </select>
+  <div class="filter-count" id="filterCount">12 tutors</div>
+</div>
+
+<div class="main-layout">
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Session Type</div>
+      <label class="sidebar-option"><input type="checkbox" onchange="filterTutors()"/> In-person <span class="count">10</span></label>
+      <label class="sidebar-option"><input type="checkbox" onchange="filterTutors()"/> Online <span class="count">9</span></label>
+      <label class="sidebar-option"><input type="checkbox" onchange="filterTutors()"/> Both <span class="count">7</span></label>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Minimum Rating</div>
+      <label class="sidebar-option"><input type="checkbox" onchange="filterTutors()"/> ★★★★★ (5.0)</label>
+      <label class="sidebar-option"><input type="checkbox" onchange="filterTutors()"/> ★★★★☆ (4+)</label>
+      <label class="sidebar-option"><input type="checkbox" onchange="filterTutors()"/> ★★★☆☆ (3+)</label>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Price Range (BWP/hr)</div>
+      <div class="price-row">
+        <input class="price-input" type="number" placeholder="Min" min="0"/>
+        <span style="color:var(--slate);">–</span>
+        <input class="price-input" type="number" placeholder="Max" min="0"/>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Availability</div>
+      <label class="sidebar-option"><input type="checkbox"/> Weekdays</label>
+      <label class="sidebar-option"><input type="checkbox"/> Weekends</label>
+      <label class="sidebar-option"><input type="checkbox"/> Evenings</label>
+    </div>
+  </div>
+
+  <div class="tutors-content">
+    <div class="results-header">
+      <div>
+        <h3 id="resultsTitle">All Tutors</h3>
+        <p id="resultsSubtitle">Showing 12 tutors</p>
+      </div>
+      <div class="sort-wrap">
+        <select onchange="sortTutors(this.value)">
+          <option value="rating">Sort: Top Rated</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name">Name: A–Z</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid-tutors" id="tutorsGrid"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalContent">
+    <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('open')">✕</button>
+    <div class="modal-header" id="modalHeader"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// Check login state
+const user = JSON.parse(localStorage.getItem('tc_user') || 'null');
+if (user) {
+  document.getElementById('navUser').innerHTML = `<span class="user-pill">👤 ${user.email.split('@')[0]}</span>`;
+}
+
+const TUTORS = [
+  { id:1, name:'Kagiso Moleleki', initials:'KM', color:'#D4A017', textColor:'#0A1628', subject:'Mathematics & Statistics', institution:'UB', plan:'premium', rating:5.0, reviews:18, rate:80, type:'In-person', bio:'BSc Mathematics honours graduate from UB. Specialises in calculus, linear algebra, and statistical analysis. 3 years tutoring experience.', subjects:['Mathematics','Statistics','Calculus'], availability:'Mon–Sat', passRate:'94%', phone:'+267 72 000 001' },
+  { id:2, name:'Tshepiso Sithole', initials:'TS', color:'#1A8C5B', textColor:'#fff', subject:'Computer Science & IT', institution:'BUAN', plan:'premium', rating:5.0, reviews:22, rate:70, type:'Both', bio:'Final year BSc Computer Science student at BUAN. Expert in programming (Python, Java, C++), databases, and networking.', subjects:['Computer Science','Programming','Databases'], availability:'Mon–Fri + Weekends', passRate:'97%', phone:'+267 72 000 002' },
+  { id:3, name:'Neo Bogosing', initials:'NB', color:'#4A6FA5', textColor:'#fff', subject:'Accounting & Finance', institution:'Botho', plan:'premium', rating:4.5, reviews:15, rate:65, type:'In-person', bio:'ACCA-qualified tutor with expertise in financial accounting, management accounting, and auditing. Works with Botho and ABM students.', subjects:['Accounting','Finance','Auditing'], availability:'Weekdays only', passRate:'91%', phone:'+267 72 000 003' },
+  { id:4, name:'Lebogang Modise', initials:'LM', color:'#8E44AD', textColor:'#fff', subject:'Biology & Chemistry', institution:'BAC', plan:'basic', rating:4.0, reviews:9, rate:55, type:'Both', bio:'BSc Biology student at BAC with a passion for science education. Tutors secondary and tertiary level Biology, Chemistry and Physics.', subjects:['Biology','Chemistry','Physics'], availability:'Weekends & Evenings', passRate:'88%', phone:'+267 72 000 004' },
+  { id:5, name:'Oratile Tau', initials:'OT', color:'#E74C3C', textColor:'#fff', subject:'Economics & Business', institution:'UB', plan:'premium', rating:4.5, reviews:11, rate:75, type:'Online', bio:'MA Economics candidate at UB. Tutors micro/macroeconomics, econometrics, and business strategy for all levels.', subjects:['Economics','Business Studies','Econometrics'], availability:'Mon–Sat', passRate:'92%', phone:'+267 72 000 005' },
+  { id:6, name:'Mpho Kefilwe', initials:'MK', color:'#16A085', textColor:'#fff', subject:'Mathematics & Physics', institution:'BCET', plan:'basic', rating:4.0, reviews:7, rate:50, type:'In-person', bio:'Engineering student at BCET tutoring A-level and first-year university Mathematics and Physics. Affordable rates.', subjects:['Mathematics','Physics'], availability:'Evenings & Weekends', passRate:'85%', phone:'+267 72 000 006' },
+  { id:7, name:'Goitseone Ramotswe', initials:'GR', color:'#C0392B', textColor:'#fff', subject:'English & Communication', institution:'Limkokwing', plan:'basic', rating:4.5, reviews:12, rate:45, type:'Both', bio:'BA Communication student at Limkokwing. Specialises in essay writing, English grammar, and communication skills.', subjects:['English','Communication','Academic Writing'], availability:'Flexible', passRate:'90%', phone:'+267 72 000 007' },
+  { id:8, name:'Boitumelo Seleka', initials:'BS', color:'#2C3E50', textColor:'#fff', subject:'Finance & Accounting', institution:'ABM', plan:'premium', rating:5.0, reviews:20, rate:85, type:'Online', bio:'MBA graduate from ABM. Specialises in corporate finance, investment analysis, and financial reporting. Top-rated tutor on TutorCon.', subjects:['Finance','Accounting','Investment'], availability:'Mon–Fri', passRate:'98%', phone:'+267 72 000 008' },
+  { id:9, name:'Khumo Dithebe', initials:'KD', color:'#27AE60', textColor:'#fff', subject:'Computer Science', institution:'UB', plan:'basic', rating:4.0, reviews:5, rate:60, type:'In-person', bio:'Third-year BSc IT student at UB. Tutors programming fundamentals, data structures, and web development.', subjects:['Computer Science','Web Development','Java'], availability:'Weekends', passRate:'82%', phone:'+267 72 000 009' },
+  { id:10, name:'Tumelo Moseki', initials:'TM', color:'#F39C12', textColor:'#fff', subject:'Statistics & Research Methods', institution:'BUAN', plan:'premium', rating:4.5, reviews:16, rate:72, type:'Both', bio:'MSc Statistics student at BUAN. Helps with SPSS, R, quantitative research methods, and statistical reporting.', subjects:['Statistics','Research Methods','SPSS'], availability:'Mon–Sat', passRate:'93%', phone:'+267 72 000 010' },
+  { id:11, name:'Lesego Pheto', initials:'LP', color:'#9B59B6', textColor:'#fff', subject:'Biology & Science', institution:'BAC', plan:'basic', rating:3.5, reviews:4, rate:40, type:'In-person', bio:'BSc student at BAC, experienced in helping secondary school pure science students with Biology, Chemistry, and related subjects.', subjects:['Biology','Science'], availability:'After school hours', passRate:'80%', phone:'+267 72 000 011' },
+  { id:12, name:'Dikeledi Nkwe', initials:'DN', color:'#1ABC9C', textColor:'#fff', subject:'Accounting', institution:'Botho', plan:'basic', rating:4.0, reviews:6, rate:52, type:'Both', bio:'BCOM Accounting student at Botho with 2 years tutoring experience. Patient and methodical teaching approach.', subjects:['Accounting','Bookkeeping'], availability:'Evenings & Weekends', passRate:'87%', phone:'+267 72 000 012' },
+];
+
+let displayed = [...TUTORS];
+
+function renderTutors(list) {
+  const grid = document.getElementById('tutorsGrid');
+  document.getElementById('filterCount').textContent = `${list.length} tutor${list.length !== 1 ? 's' : ''}`;
+  document.getElementById('resultsSubtitle').textContent = `Showing ${list.length} tutor${list.length !== 1 ? 's' : ''}`;
+  document.getElementById('totalCount').textContent = list.length;
+
+  if (list.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--slate);">
+      <div style="font-size:3rem;margin-bottom:12px;">🔍</div>
+      <h3 style="color:var(--navy);margin-bottom:8px;">No tutors found</h3>
+      <p>Try adjusting your filters or search terms.</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(t => `
+    <div class="tc" onclick="openModal(${t.id})">
+      <div class="tc-top">
+        <div class="tc-avatar" style="background:${t.color};color:${t.textColor};">${t.initials}</div>
+        <div class="tc-meta">
+          <span class="tc-badge ${t.plan === 'premium' ? 'badge-premium' : 'badge-basic'}">${t.plan === 'premium' ? '⭐ Premium' : 'Basic'}</span>
+          <div class="tc-name">${t.name}</div>
+          <div class="tc-subject">${t.subject}</div>
+          <div class="tc-inst">${t.institution} · ${t.type}</div>
+        </div>
+      </div>
+      <div class="tc-body">
+        <div class="tc-stars">${starsHtml(t.rating)} <span>(${t.reviews} reviews)</span></div>
+        <div class="tc-bio">${t.bio}</div>
+        <div class="tc-pills">${t.subjects.map(s => `<span class="pill">${s}</span>`).join('')}</div>
+        <div class="tc-footer">
+          <div class="tc-rate">P${t.rate} <span>/hr</span></div>
+          <button class="btn-book" onclick="bookTutor(event,${t.id})">Book Now</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function starsHtml(r) {
+  return ['★','★','★','★','★'].map((_,i) => `<span style="opacity:${i < Math.floor(r) ? 1 : i < r ? 0.6 : 0.2}">★</span>`).join('');
+}
+
+function filterTutors() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const subj = document.getElementById('subjectFilter').value.toLowerCase();
+  const inst = document.getElementById('instFilter').value.toLowerCase();
+  const plan = document.getElementById('planFilter').value.toLowerCase();
+
+  displayed = TUTORS.filter(t => {
+    const matchQ = !q || t.name.toLowerCase().includes(q) || t.subject.toLowerCase().includes(q) || t.institution.toLowerCase().includes(q);
+    const matchSubj = !subj || t.subjects.some(s => s.toLowerCase().includes(subj));
+    const matchInst = !inst || t.institution.toLowerCase() === inst;
+    const matchPlan = !plan || t.plan === plan;
+    return matchQ && matchSubj && matchInst && matchPlan;
+  });
+  renderTutors(displayed);
+}
+
+function sortTutors(val) {
+  if (val === 'rating') displayed.sort((a,b) => b.rating - a.rating || (b.plan === 'premium') - (a.plan === 'premium'));
+  if (val === 'price-asc') displayed.sort((a,b) => a.rate - b.rate);
+  if (val === 'price-desc') displayed.sort((a,b) => b.rate - a.rate);
+  if (val === 'name') displayed.sort((a,b) => a.name.localeCompare(b.name));
+  renderTutors(displayed);
+}
+
+function openModal(id) {
+  const t = TUTORS.find(x => x.id === id);
+  if (!t) return;
+  document.getElementById('modalHeader').innerHTML = `
+    <div class="modal-avatar" style="background:${t.color};color:${t.textColor};">${t.initials}</div>
+    <div class="modal-name">${t.name}</div>
+    <div class="modal-sub">${t.subject} · ${t.institution}</div>
+    <div style="margin-top:10px;">${starsHtml(t.rating)} <span style="color:rgba(255,255,255,0.6);font-size:0.85rem;">${t.rating}/5 (${t.reviews} reviews)</span></div>
+  `;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="detail-grid">
+      <div class="detail-item"><div class="lbl">Hourly Rate</div><div class="val">P${t.rate}/hr</div></div>
+      <div class="detail-item"><div class="lbl">Session Type</div><div class="val">${t.type}</div></div>
+      <div class="detail-item"><div class="lbl">Availability</div><div class="val">${t.availability}</div></div>
+      <div class="detail-item"><div class="lbl">Pass Rate</div><div class="val">${t.passRate}</div></div>
+    </div>
+    <div class="modal-section-title">About</div>
+    <p>${t.bio}</p>
+    <div class="modal-section-title">Subjects</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;">${t.subjects.map(s=>`<span class="pill" style="background:rgba(212,160,23,0.12);color:var(--gold);font-weight:600;">${s}</span>`).join('')}</div>
+    <div class="modal-section-title">Student Reviews</div>
+    <div class="review-card"><div class="stars">★★★★★</div><p>"Excellent tutor. Explained complex concepts clearly."</p><div class="reviewer">— UB Student</div></div>
+    <div class="review-card"><div class="stars">★★★★★</div><p>"I passed my exams thanks to these sessions!"</p><div class="reviewer">— BUAN Student</div></div>
+    <button class="book-btn" onclick="bookTutor(event,${t.id})">📅 Book a Session with ${t.name.split(' ')[0]}</button>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) document.getElementById('modalOverlay').classList.remove('open');
+}
+
+function bookTutor(e, id) {
+  e.stopPropagation();
+  const user = JSON.parse(localStorage.getItem('tc_user') || 'null');
+  if (!user) { window.location.href = 'login.html'; return; }
+  const t = TUTORS.find(x => x.id === id);
+  alert(`✅ Booking request sent to ${t.name}!\n\nThey will contact you within 24 hours.\nContact: ${t.phone}`);
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+// Initial render sorted by rating/premium
+displayed.sort((a,b) => b.rating - a.rating || (b.plan === 'premium') - (a.plan === 'premium'));
+renderTutors(displayed);
+</script>
+</body>
+</html>
