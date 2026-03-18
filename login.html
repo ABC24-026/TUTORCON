@@ -1,1 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Log In – TutorCon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0A1628; --navy-mid: #132040; --gold: #D4A017; --gold-light: #F0C040;
+      --cream: #FAF7F0; --white: #FFFFFF; --slate: #6B7A99; --green: #1A8C5B; --red: #C0392B;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--navy); min-height: 100vh; display: flex; }
 
+    /* LEFT PANEL */
+    .left-panel {
+      flex: 1; background: var(--navy-mid); display: flex; flex-direction: column;
+      justify-content: center; padding: 60px;
+      position: relative; overflow: hidden;
+    }
+    .left-panel::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(212,160,23,0.12) 0%, transparent 60%);
+    }
+    .left-panel::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .panel-content { position: relative; z-index: 2; }
+    .panel-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-bottom: 60px; }
+    .logo-icon { width: 40px; height: 40px; background: var(--gold); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: var(--navy); }
+    .panel-logo span { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--white); font-weight: 700; }
+    .panel-logo .con { color: var(--gold); }
+    .panel-content h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--white); line-height: 1.2; margin-bottom: 16px; }
+    .panel-content h1 em { color: var(--gold); font-style: normal; }
+    .panel-content p { color: rgba(255,255,255,0.6); font-size: 1rem; line-height: 1.7; max-width: 360px; margin-bottom: 48px; }
+    .testimonial {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 24px;
+    }
+    .testimonial p { color: rgba(255,255,255,0.8); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--navy); font-size: 0.9rem; }
+    .author-info .name { color: var(--white); font-weight: 600; font-size: 0.9rem; }
+    .author-info .role { color: rgba(255,255,255,0.5); font-size: 0.8rem; }
+
+    /* RIGHT PANEL */
+    .right-panel {
+      width: 480px; background: var(--cream); display: flex; flex-direction: column;
+      justify-content: center; padding: 60px 50px;
+    }
+    .form-header { margin-bottom: 36px; }
+    .form-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--navy); margin-bottom: 8px; }
+    .form-header p { color: var(--slate); font-size: 0.9rem; }
+    .form-header p a { color: var(--gold); text-decoration: none; font-weight: 600; }
+
+    /* TABS */
+    .tab-row { display: flex; background: rgba(10,22,40,0.08); border-radius: 10px; padding: 4px; margin-bottom: 30px; }
+    .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--slate); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    .tab-btn.active { background: var(--navy); color: var(--white); }
+
+    /* FORM */
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+    input[type="email"], input[type="password"], input[type="text"] {
+      width: 100%; padding: 13px 16px; border: 1.5px solid rgba(10,22,40,0.15);
+      border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      background: var(--white); color: var(--navy); outline: none; transition: border-color 0.2s;
+    }
+    input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,160,23,0.12); }
+    .input-row { display: flex; gap: 12px; }
+    .form-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .remember { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--slate); cursor: pointer; }
+    .remember input[type="checkbox"] { accent-color: var(--gold); width: 16px; height: 16px; }
+    .forgot { color: var(--gold); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+    .btn-login {
+      width: 100%; padding: 14px; background: var(--navy); color: var(--white);
+      border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-login:hover { background: var(--gold); color: var(--navy); transform: translateY(-1px); }
+    .divider { text-align: center; color: var(--slate); font-size: 0.82rem; margin: 20px 0; position: relative; }
+    .divider::before { content: ''; position: absolute; left: 0; top: 50%; width: 40%; height: 1px; background: rgba(0,0,0,0.1); }
+    .divider::after { content: ''; position: absolute; right: 0; top: 50%; width: 40%; height: 1px; background: rgba(0,0,0,0.1); }
+    .btn-google {
+      width: 100%; padding: 13px; border: 1.5px solid rgba(10,22,40,0.15);
+      background: var(--white); border-radius: 10px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 600; color: var(--navy); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s;
+    }
+    .btn-google:hover { border-color: var(--navy); background: var(--cream); }
+
+    /* ALERT */
+    .alert { padding: 12px 16px; border-radius: 8px; font-size: 0.88rem; margin-bottom: 20px; display: none; }
+    .alert-error { background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.3); color: var(--red); }
+    .alert-success { background: rgba(26,140,91,0.1); border: 1px solid rgba(26,140,91,0.3); color: var(--green); }
+
+    @media (max-width: 900px) {
+      .left-panel { display: none; }
+      .right-panel { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="left-panel">
+  <div class="panel-content">
+    <a href="index.html" class="panel-logo">
+      <div class="logo-icon">T</div>
+      <span>Tutor<span class="con">Con</span></span>
+    </a>
+    <h1>Your Academic <em>Success</em> Starts Here</h1>
+    <p>Connect with verified tutors from Gaborone's top institutions. Book sessions, track progress, and excel.</p>
+    <div class="testimonial">
+      <p>"TutorCon helped me find a UB tutor for my BSc modules when my campus had no one available. I passed with distinction!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">KS</div>
+        <div class="author-info">
+          <div class="name">Keamogetse Setlhare</div>
+          <div class="role">BUAN Student, BSc Computer Science</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="right-panel">
+  <div class="form-header">
+    <h2>Welcome Back</h2>
+    <p>Don't have an account? <a href="register.html">Sign up free</a></p>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="setRole('student', this)">I'm a Student</button>
+    <button class="tab-btn" onclick="setRole('tutor', this)">I'm a Tutor</button>
+  </div>
+
+  <div class="alert alert-error" id="errorAlert">❌ Invalid email or password. Please try again.</div>
+  <div class="alert alert-success" id="successAlert">✅ Login successful! Redirecting…</div>
+
+  <form id="loginForm" onsubmit="handleLogin(event)">
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="email" placeholder="you@university.ac.bw" required />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="••••••••" required />
+    </div>
+    <div class="form-options">
+      <label class="remember"><input type="checkbox" /> Remember me</label>
+      <a href="#" class="forgot">Forgot password?</a>
+    </div>
+    <button type="submit" class="btn-login">Log In to TutorCon →</button>
+  </form>
+
+  <div class="divider">or continue with</div>
+  <button class="btn-google">
+    <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.962L3.964 7.294C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+    Continue with Google
+  </button>
+
+  <p style="text-align:center; margin-top:24px; color:var(--slate); font-size:0.82rem;">
+    By logging in, you agree to our <a href="#" style="color:var(--gold);">Terms of Service</a> and <a href="#" style="color:var(--gold);">Privacy Policy</a>.
+  </p>
+</div>
+
+<script>
+  let currentRole = 'student';
+  function setRole(role, btn) {
+    currentRole = role;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const errAlert = document.getElementById('errorAlert');
+    const sucAlert = document.getElementById('successAlert');
+    errAlert.style.display = 'none';
+    sucAlert.style.display = 'none';
+
+    // Demo credentials
+    const validAccounts = [
+      { email: 'student@tutorcon.bw', password: 'password123', role: 'student' },
+      { email: 'tutor@tutorcon.bw', password: 'tutor456', role: 'tutor' },
+      { email: 'demo@tutorcon.bw', password: 'demo', role: 'student' },
+    ];
+
+    const found = validAccounts.find(a => a.email === email && a.password === password);
+    if (found) {
+      sucAlert.style.display = 'block';
+      localStorage.setItem('tc_user', JSON.stringify({ email, role: found.role }));
+      setTimeout(() => { window.location.href = 'tutors.html'; }, 1200);
+    } else {
+      errAlert.style.display = 'block';
+    }
+  }
+</script>
+</body>
+</html>
