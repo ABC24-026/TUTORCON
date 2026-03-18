@@ -187,17 +187,30 @@
     sucAlert.style.display = 'none';
 
     // Demo credentials
-    const validAccounts = [
-      { email: 'student@tutorcon.bw', password: 'password123', role: 'student' },
-      { email: 'tutor@tutorcon.bw', password: 'tutor456', role: 'tutor' },
-      { email: 'demo@tutorcon.bw', password: 'demo', role: 'student' },
+    // Check demo/seed accounts
+    const seedAccounts = [
+      { email: 'student@tutorcon.bw', password: 'password123', role: 'student', firstName:'Demo', lastName:'Student' },
+      { email: 'tutor@tutorcon.bw',   password: 'tutor456',    role: 'tutor',   firstName:'Demo', lastName:'Tutor'   },
+      { email: 'demo@tutorcon.bw',    password: 'demo',        role: 'student', firstName:'Demo', lastName:'User'    },
     ];
 
-    const found = validAccounts.find(a => a.email === email && a.password === password);
-    if (found) {
+    // Also check registered users
+    const registeredTutors = JSON.parse(localStorage.getItem('tc_registered_tutors')||'[]');
+    const regMatch = registeredTutors.find(t => t.email === email);
+
+    const seedMatch = seedAccounts.find(a => a.email === email && a.password === password);
+
+    if (seedMatch) {
       sucAlert.style.display = 'block';
-      localStorage.setItem('tc_user', JSON.stringify({ email, role: found.role }));
-      setTimeout(() => { window.location.href = 'tutors.html'; }, 1200);
+      localStorage.setItem('tc_user', JSON.stringify({ email, role: seedMatch.role, firstName: seedMatch.firstName, lastName: seedMatch.lastName }));
+      setTimeout(() => {
+        window.location.href = seedMatch.role === 'tutor' ? 'tutor-dashboard.html' : 'tutors.html';
+      }, 1200);
+    } else if (regMatch) {
+      // Registered tutor trying to log in (password check simplified for demo)
+      sucAlert.style.display = 'block';
+      localStorage.setItem('tc_user', JSON.stringify({ email, role:'tutor', firstName: regMatch.name.split(' ')[0], lastName: regMatch.name.split(' ')[1]||'', tutorId: regMatch.id }));
+      setTimeout(() => { window.location.href = 'tutor-dashboard.html'; }, 1200);
     } else {
       errAlert.style.display = 'block';
     }
