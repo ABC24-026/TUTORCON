@@ -1,1 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TutorCon – Connect. Learn. Excel.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0A1628;
+      --navy-mid: #132040;
+      --gold: #D4A017;
+      --gold-light: #F0C040;
+      --cream: #FAF7F0;
+      --white: #FFFFFF;
+      --slate: #6B7A99;
+      --green: #1A8C5B;
+      --green-light: #22A86E;
+      --red: #C0392B;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--navy); overflow-x: hidden; }
 
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(10,22,40,0.96);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 70px;
+      border-bottom: 2px solid var(--gold);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo .logo-icon {
+      width: 36px; height: 36px; background: var(--gold);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900; color: var(--navy); font-family: 'Playfair Display', serif;
+    }
+    .nav-logo span { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--white); font-weight: 700; }
+    .nav-logo .con { color: var(--gold); }
+    .nav-links { display: flex; gap: 30px; align-items: center; }
+    .nav-links a { text-decoration: none; color: rgba(255,255,255,0.8); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { display: flex; gap: 12px; }
+    .btn-outline { padding: 8px 20px; border: 1.5px solid var(--gold); color: var(--gold); border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; }
+    .btn-outline:hover { background: var(--gold); color: var(--navy); }
+    .btn-solid { padding: 8px 20px; background: var(--gold); color: var(--navy); border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 0.85rem; transition: all 0.2s; }
+    .btn-solid:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 100px 5% 60px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(212,160,23,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(26,140,91,0.06) 0%, transparent 50%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 650px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(212,160,23,0.15); border: 1px solid rgba(212,160,23,0.4);
+      padding: 6px 16px; border-radius: 50px; margin-bottom: 28px;
+      color: var(--gold); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .hero-badge span { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      color: var(--white); line-height: 1.1; margin-bottom: 22px;
+    }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero p { color: rgba(255,255,255,0.7); font-size: 1.1rem; line-height: 1.7; margin-bottom: 40px; max-width: 500px; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary { padding: 14px 32px; background: var(--gold); color: var(--navy); border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,160,23,0.35); }
+    .btn-secondary { padding: 14px 32px; border: 2px solid rgba(255,255,255,0.3); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.2s; }
+    .btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+    .hero-stats {
+      position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 20px; z-index: 2;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 24px 28px; text-align: center;
+      backdrop-filter: blur(10px); min-width: 160px;
+      animation: floatUp 0.8s ease both;
+    }
+    .stat-card:nth-child(2) { animation-delay: 0.15s; }
+    .stat-card:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes floatUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); font-weight: 700; }
+    .stat-label { color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-top: 4px; }
+
+    /* WAVE */
+    .wave { display: block; width: 100%; overflow: hidden; line-height: 0; }
+    .wave svg { display: block; }
+
+    /* STATS BAR */
+    .stats-bar {
+      background: var(--navy-mid); padding: 40px 5%;
+      display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;
+    }
+    .stats-item { text-align: center; }
+    .stats-item .num { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--gold); font-weight: 700; }
+    .stats-item .lbl { color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-top: 4px; }
+
+    /* SECTION */
+    section { padding: 80px 5%; }
+    .section-tag { display: inline-block; background: rgba(212,160,23,0.12); color: var(--gold); padding: 4px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); color: var(--navy); margin-bottom: 16px; line-height: 1.2; }
+    .section-sub { color: var(--slate); font-size: 1.05rem; line-height: 1.7; max-width: 540px; }
+
+    /* HOW IT WORKS */
+    .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; margin-top: 50px; }
+    .how-card {
+      background: var(--white); border-radius: 16px; padding: 36px 28px;
+      border: 1px solid rgba(0,0,0,0.07);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .how-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gold); }
+    .how-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.1); }
+    .how-num { font-family: 'Playfair Display', serif; font-size: 3rem; color: rgba(212,160,23,0.2); font-weight: 900; margin-bottom: 12px; }
+    .how-icon { font-size: 2rem; margin-bottom: 16px; }
+    .how-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; color: var(--navy); }
+    .how-card p { color: var(--slate); font-size: 0.9rem; line-height: 1.6; }
+
+    /* FEATURED TUTORS */
+    .tutors-section { background: var(--navy); padding: 80px 5%; }
+    .tutors-section .section-title { color: var(--white); }
+    .tutors-section .section-sub { color: rgba(255,255,255,0.6); }
+    .tutors-section .section-tag { background: rgba(212,160,23,0.2); }
+    .tutors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 50px; }
+    .tutor-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 28px; transition: all 0.2s;
+      cursor: pointer; text-decoration: none;
+    }
+    .tutor-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); border-color: var(--gold); }
+    .tutor-avatar {
+      width: 70px; height: 70px; border-radius: 50%; margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; font-weight: 700; font-family: 'Playfair Display', serif;
+      color: var(--navy);
+    }
+    .tutor-card .badge { display: inline-block; padding: 3px 10px; border-radius: 50px; font-size: 0.72rem; font-weight: 700; margin-bottom: 10px; }
+    .premium { background: var(--gold); color: var(--navy); }
+    .basic { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
+    .tutor-card h3 { color: var(--white); font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    .tutor-card .subject { color: var(--gold); font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+    .tutor-card .institution { color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-bottom: 14px; }
+    .tutor-card .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 6px; }
+    .tutor-card .rate { color: rgba(255,255,255,0.8); font-size: 0.85rem; }
+    .tutor-card .rate strong { color: var(--white); font-size: 1rem; }
+    .view-all { display: flex; justify-content: center; margin-top: 40px; }
+
+    /* WHY TUTORCON */
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 50px; }
+    .why-list { display: flex; flex-direction: column; gap: 24px; }
+    .why-item { display: flex; gap: 16px; align-items: flex-start; }
+    .why-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(212,160,23,0.12); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+    .why-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; color: var(--navy); }
+    .why-item p { color: var(--slate); font-size: 0.9rem; line-height: 1.6; }
+    .why-visual {
+      background: var(--navy); border-radius: 20px; padding: 40px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .why-visual-title { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.3rem; margin-bottom: 8px; }
+    .institution-pill {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.9); padding: 10px 18px; border-radius: 50px;
+      font-size: 0.85rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .institution-pill span { width: 8px; height: 8px; background: var(--green-light); border-radius: 50%; }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--navy) 0%, #0d1e3a 100%);
+      text-align: center; padding: 100px 5%;
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(212,160,23,0.1) 0%, transparent 70%);
+    }
+    .cta-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white); margin-bottom: 16px; position: relative; }
+    .cta-section p { color: rgba(255,255,255,0.7); font-size: 1.05rem; margin-bottom: 40px; position: relative; }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+    /* FOOTER */
+    footer {
+      background: #060f1e; padding: 60px 5% 30px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+    .footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.88rem; line-height: 1.7; margin-top: 12px; max-width: 260px; }
+    .footer-col h4 { color: var(--gold); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 18px; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.55); font-size: 0.88rem; text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
+    .footer-bottom p { color: rgba(255,255,255,0.35); font-size: 0.82rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-stats { position: static; transform: none; flex-direction: row; flex-wrap: wrap; justify-content: center; margin-top: 50px; }
+      .hero-content { max-width: 100%; }
+      .why-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .stats-bar { gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">T</div>
+    <span>Tutor<span class="con">Con</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="tutors.html">Find Tutors</a>
+    <a href="about.html">About Us</a>
+    <a href="#how">How It Works</a>
+  </div>
+  <div class="nav-cta">
+    <a href="login.html" class="btn-outline">Log In</a>
+    <a href="register.html" class="btn-solid">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span></span> Gaborone's #1 Tutoring Platform</div>
+    <h1>Connect With <em>Expert Tutors</em> Across Every Institution</h1>
+    <p>TutorCon bridges students and tutors from BAC, BUAN, UB, Botho, ABM, BCET, Limkokwing and beyond — all in one powerful platform.</p>
+    <div class="hero-btns">
+      <a href="tutors.html" class="btn-primary">🔍 Find a Tutor</a>
+      <a href="register.html" class="btn-secondary">Become a Tutor →</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num">120+</div>
+      <div class="stat-label">Active Tutors</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Institutions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Students Helped</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-item"><div class="num">120+</div><div class="lbl">Verified Tutors</div></div>
+  <div class="stats-item"><div class="num">8</div><div class="lbl">Partner Institutions</div></div>
+  <div class="stats-item"><div class="num">500+</div><div class="lbl">Students Helped</div></div>
+  <div class="stats-item"><div class="num">4.8★</div><div class="lbl">Average Rating</div></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background: var(--cream);">
+  <div class="section-tag">How It Works</div>
+  <h2 class="section-title">Simple. Fast. Effective.</h2>
+  <p class="section-sub">Getting started with TutorCon takes under 5 minutes. Here's how the platform works for you.</p>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <div class="how-icon">📝</div>
+      <h3>Create Your Account</h3>
+      <p>Sign up as a student or tutor. Complete your profile with your institution, courses, and academic background.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <div class="how-icon">🔍</div>
+      <h3>Browse & Search Tutors</h3>
+      <p>Filter tutors by subject, institution, rating, price, and availability. Read reviews from real students.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <div class="how-icon">📅</div>
+      <h3>Book a Session</h3>
+      <p>Choose part-time or full-time sessions. Schedule directly through the platform and get instant confirmation.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">04</div>
+      <div class="how-icon">⭐</div>
+      <h3>Learn & Review</h3>
+      <p>Attend your session and leave a review. Your feedback helps other students find the best tutors.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED TUTORS -->
+<section class="tutors-section">
+  <div class="section-tag">Top Tutors</div>
+  <h2 class="section-title">Meet Our Featured Tutors</h2>
+  <p class="section-sub">Verified tutors from top Gaborone institutions, ready to help you excel.</p>
+  <div class="tutors-grid">
+    <a href="login.html" class="tutor-card">
+      <div class="tutor-avatar" style="background:#D4A017;">KM</div>
+      <span class="badge premium">⭐ Premium</span>
+      <h3>Kagiso Moleleki</h3>
+      <div class="subject">Mathematics & Statistics</div>
+      <div class="institution">University of Botswana</div>
+      <div class="stars">★★★★★</div>
+      <div class="rate">From <strong>P80/hr</strong></div>
+    </a>
+    <a href="login.html" class="tutor-card">
+      <div class="tutor-avatar" style="background:#1A8C5B; color:#fff;">TS</div>
+      <span class="badge premium">⭐ Premium</span>
+      <h3>Tshepiso Sithole</h3>
+      <div class="subject">Computer Science & IT</div>
+      <div class="institution">BUAN</div>
+      <div class="stars">★★★★★</div>
+      <div class="rate">From <strong>P70/hr</strong></div>
+    </a>
+    <a href="login.html" class="tutor-card">
+      <div class="tutor-avatar" style="background:#4A6FA5; color:#fff;">NB</div>
+      <span class="badge premium">⭐ Premium</span>
+      <h3>Neo Bogosing</h3>
+      <div class="subject">Accounting & Finance</div>
+      <div class="institution">Botho University</div>
+      <div class="stars">★★★★☆</div>
+      <div class="rate">From <strong>P65/hr</strong></div>
+    </a>
+    <a href="login.html" class="tutor-card">
+      <div class="tutor-avatar" style="background:#8E44AD; color:#fff;">LM</div>
+      <span class="badge basic">Basic</span>
+      <h3>Lebogang Modise</h3>
+      <div class="subject">Biology & Chemistry</div>
+      <div class="institution">BAC</div>
+      <div class="stars">★★★★☆</div>
+      <div class="rate">From <strong>P55/hr</strong></div>
+    </a>
+  </div>
+  <div class="view-all">
+    <a href="tutors.html" class="btn-primary">View All Tutors →</a>
+  </div>
+</section>
+
+<!-- WHY TUTORCON -->
+<section style="background: var(--white);">
+  <div class="section-tag">Why TutorCon</div>
+  <h2 class="section-title">Built for Gaborone Students</h2>
+  <div class="why-grid">
+    <div class="why-list">
+      <div class="why-item">
+        <div class="why-icon">🎓</div>
+        <div>
+          <h4>Cross-Institution Matching</h4>
+          <p>A BUAN student can access a UB tutor teaching the same BSc modules — no more being limited to your own campus.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">✅</div>
+        <div>
+          <h4>Verified Tutor Profiles</h4>
+          <p>Every tutor on TutorCon is verified by institution. You see real pass rates, reviews, and credentials.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">💬</div>
+        <div>
+          <h4>In-Platform Messaging</h4>
+          <p>No more chasing WhatsApp ads. Message tutors directly, schedule appointments and never lose a conversation.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">📚</div>
+        <div>
+          <h4>Study Material Marketplace</h4>
+          <p>Tutors can optionally sell study materials and notes directly through their profiles.</p>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual">
+      <div class="why-visual-title">Institutions on TutorCon</div>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;">
+        <span class="institution-pill"><span></span> University of Botswana</span>
+        <span class="institution-pill"><span></span> BUAN</span>
+        <span class="institution-pill"><span></span> Botho University</span>
+        <span class="institution-pill"><span></span> BAC</span>
+        <span class="institution-pill"><span></span> ABM</span>
+        <span class="institution-pill"><span></span> BCET</span>
+        <span class="institution-pill"><span></span> Limkokwing</span>
+        <span class="institution-pill"><span></span> Secondary Schools</span>
+      </div>
+      <div style="margin-top:24px; padding:20px; background:rgba(212,160,23,0.12); border-radius:12px; border:1px solid rgba(212,160,23,0.3);">
+        <div style="color:var(--gold); font-weight:700; margin-bottom:8px;">Tutor Plans</div>
+        <div style="color:rgba(255,255,255,0.8); font-size:0.88rem; line-height:1.7;">
+          🟡 <strong style="color:#fff;">Basic Listing</strong> — P20/month<br>
+          ⭐ <strong style="color:#fff;">Premium Listing</strong> — P45/month<br>
+          <span style="color:rgba(255,255,255,0.5); font-size:0.8rem;">Premium tutors appear higher in search results</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to Excel Academically?</h2>
+  <p>Join hundreds of students and tutors already on TutorCon. It's free to sign up.</p>
+  <div class="cta-btns">
+    <a href="register.html" class="btn-primary">Sign Up as Student</a>
+    <a href="register.html?type=tutor" class="btn-secondary" style="color:var(--white); border:2px solid rgba(255,255,255,0.4); padding:14px 32px; border-radius:8px; text-decoration:none; font-weight:600;">Register as Tutor</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo" style="display:inline-flex;">
+        <div class="logo-icon">T</div>
+        <span style="font-family:'Playfair Display',serif; font-size:1.3rem; color:#fff; font-weight:700;">Tutor<span style="color:var(--gold);">Con</span></span>
+      </a>
+      <p>Connecting students with expert tutors across Gaborone's leading institutions since 2024.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <a href="tutors.html">Find Tutors</a>
+      <a href="register.html?type=tutor">Become a Tutor</a>
+      <a href="#">Study Materials</a>
+      <a href="#">How It Works</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="#">Contact</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#">Help Centre</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Report an Issue</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 TutorCon. All rights reserved. Gaborone, Botswana.</p>
+    <p style="color:rgba(255,255,255,0.3); font-size:0.82rem;">Made for Gaborone students 🇧🇼</p>
+  </div>
+</footer>
+
+</body>
+</html>
