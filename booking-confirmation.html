@@ -1,1 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Confirmed – TutorCon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0A1628;--gold:#D4A017;--gold-light:#F0C040;--cream:#FAF7F0;--white:#FFFFFF;--slate:#6B7A99;--green:#1A8C5B;--green-light:#22A86E;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);min-height:100vh;display:flex;flex-direction:column;}
+    nav{background:rgba(10,22,40,0.97);height:68px;display:flex;align-items:center;padding:0 5%;border-bottom:2px solid var(--gold);}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-icon{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--navy);}
+    .nav-logo span{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700;}
+    .con{color:var(--gold);}
 
+    .page{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+    .card{background:var(--white);border-radius:24px;max-width:540px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,0.08);overflow:hidden;}
+    .card-top{background:var(--navy);padding:40px;text-align:center;position:relative;overflow:hidden;}
+    .card-top::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(212,160,23,0.12) 0%,transparent 70%);}
+    .check-circle{width:80px;height:80px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:2.2rem;position:relative;z-index:1;animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both;}
+    @keyframes popIn{from{opacity:0;transform:scale(0.4)}to{opacity:1;transform:scale(1)}}
+    .card-top h1{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--white);margin-bottom:8px;position:relative;z-index:1;}
+    .card-top p{color:rgba(255,255,255,0.6);font-size:0.9rem;position:relative;z-index:1;}
+
+    .card-body{padding:32px 36px;}
+    .booking-ref{background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);border-radius:10px;padding:14px 18px;text-align:center;margin-bottom:24px;}
+    .booking-ref .ref-label{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:4px;}
+    .booking-ref .ref-num{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--navy);}
+
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+    .detail-item{background:var(--cream);border-radius:10px;padding:13px 15px;}
+    .detail-item .lbl{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--slate);margin-bottom:4px;}
+    .detail-item .val{font-weight:700;color:var(--navy);font-size:0.9rem;}
+
+    .tutor-row{display:flex;align-items:center;gap:14px;background:var(--cream);border-radius:12px;padding:16px;margin-bottom:24px;}
+    .tutor-av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;flex-shrink:0;}
+    .tutor-info .tname{font-weight:700;color:var(--navy);font-size:0.97rem;}
+    .tutor-info .tsub{color:var(--gold);font-size:0.81rem;font-weight:600;margin-top:2px;}
+    .tutor-info .tinst{color:var(--slate);font-size:0.76rem;margin-top:1px;}
+
+    .next-steps{margin-bottom:24px;}
+    .next-steps h3{font-size:0.85rem;font-weight:700;color:var(--navy);margin-bottom:12px;}
+    .step{display:flex;gap:11px;align-items:flex-start;margin-bottom:10px;}
+    .step-dot{width:24px;height:24px;border-radius:50%;background:rgba(212,160,23,0.15);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--gold);flex-shrink:0;margin-top:1px;}
+    .step p{font-size:0.84rem;color:var(--slate);line-height:1.5;}
+
+    .action-btns{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-primary{flex:1;padding:13px;background:var(--navy);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.92rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;display:block;transition:all 0.2s;}
+    .btn-primary:hover{background:var(--gold);color:var(--navy);}
+    .btn-sec{flex:1;padding:13px;background:none;color:var(--navy);border:1.5px solid rgba(10,22,40,0.2);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.92rem;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;display:block;transition:all 0.2s;}
+    .btn-sec:hover{background:var(--cream);}
+
+    @media(max-width:480px){.detail-grid{grid-template-columns:1fr;}.action-btns{flex-direction:column;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><div class="logo-icon">T</div><span>Tutor<span class="con">Con</span></span></a>
+</nav>
+
+<div class="page">
+  <div class="card">
+    <div class="card-top">
+      <div class="check-circle">✓</div>
+      <h1>Booking Confirmed!</h1>
+      <p id="confirmSub">Your session request has been sent to the tutor.</p>
+    </div>
+    <div class="card-body">
+      <div class="booking-ref">
+        <div class="ref-label">Booking Reference</div>
+        <div class="ref-num" id="refNum">TC-XXXXXX</div>
+      </div>
+
+      <div class="tutor-row">
+        <div class="tutor-av" id="tutorAv">?</div>
+        <div class="tutor-info">
+          <div class="tname" id="tutorName">Tutor Name</div>
+          <div class="tsub" id="tutorSub">Subject</div>
+          <div class="tinst" id="tutorInst">Institution</div>
+        </div>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-item"><div class="lbl">Date</div><div class="val" id="detDate">—</div></div>
+        <div class="detail-item"><div class="lbl">Time</div><div class="val" id="detTime">—</div></div>
+        <div class="detail-item"><div class="lbl">Session Type</div><div class="val" id="detType">—</div></div>
+        <div class="detail-item"><div class="lbl">Rate</div><div class="val" id="detRate">—</div></div>
+      </div>
+
+      <div class="next-steps">
+        <h3>What happens next?</h3>
+        <div class="step"><div class="step-dot">1</div><p>The tutor will receive your booking request and confirm within 24 hours.</p></div>
+        <div class="step"><div class="step-dot">2</div><p>Message the tutor to introduce yourself and share what you need help with.</p></div>
+        <div class="step"><div class="step-dot">3</div><p>Attend your session. Afterwards, leave an honest review to help other students.</p></div>
+      </div>
+
+      <div class="action-btns">
+        <a href="student-dashboard.html" class="btn-primary">📅 View My Bookings</a>
+        <a href="tutors.html" class="btn-sec">Browse More Tutors</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Read booking data from URL params
+const p = new URLSearchParams(location.search);
+const tid   = p.get('tid');
+const bdate = p.get('date') || 'To be confirmed';
+const btime = p.get('time') || 'To be confirmed';
+
+// Generate reference number
+const ref = 'TC-' + Math.random().toString(36).substr(2,6).toUpperCase();
+document.getElementById('refNum').textContent = ref;
+document.getElementById('detDate').textContent = bdate;
+document.getElementById('detTime').textContent = btime;
+
+// Find tutor
+const SEED=[
+  {id:'t1',name:'Kagiso Moleleki',ini:'KM',color:'#D4A017',tc:'#0A1628',subject:'Mathematics & Statistics',inst:'UB',rate:80,type:'In-person'},
+  {id:'t2',name:'Tshepiso Sithole',ini:'TS',color:'#1A8C5B',tc:'#fff',subject:'Computer Science & IT',inst:'BUAN',rate:70,type:'Both'},
+  {id:'t3',name:'Neo Bogosing',ini:'NB',color:'#4A6FA5',tc:'#fff',subject:'Accounting & Finance',inst:'Botho',rate:65,type:'In-person'},
+  {id:'t4',name:'Lebogang Modise',ini:'LM',color:'#8E44AD',tc:'#fff',subject:'Biology & Chemistry',inst:'BAC',rate:55,type:'Both'},
+  {id:'t5',name:'Oratile Tau',ini:'OT',color:'#E74C3C',tc:'#fff',subject:'Economics & Business',inst:'UB',rate:75,type:'Online'},
+  {id:'t6',name:'Mpho Kefilwe',ini:'MK',color:'#16A085',tc:'#fff',subject:'Mathematics & Physics',inst:'BCET',rate:50,type:'In-person'},
+  {id:'t7',name:'Goitseone Ramotswe',ini:'GR',color:'#C0392B',tc:'#fff',subject:'English & Communication',inst:'Limkokwing',rate:45,type:'Both'},
+  {id:'t8',name:'Boitumelo Seleka',ini:'BS',color:'#2C3E50',tc:'#fff',subject:'Finance & Accounting',inst:'ABM',rate:85,type:'Online'},
+];
+const reg = JSON.parse(localStorage.getItem('tc_registered_tutors')||'[]');
+const all = [...SEED,...reg];
+const tutor = all.find(t=>t.id===tid);
+
+if(tutor){
+  const av = document.getElementById('tutorAv');
+  av.textContent = tutor.ini;
+  av.style.background = tutor.color;
+  av.style.color = tutor.tc;
+  document.getElementById('tutorName').textContent = tutor.name;
+  document.getElementById('tutorSub').textContent  = tutor.subject;
+  document.getElementById('tutorInst').textContent = tutor.inst;
+  document.getElementById('detType').textContent   = tutor.type;
+  document.getElementById('detRate').textContent   = 'P'+tutor.rate+'/hr';
+
+  // Save booking to student's bookings
+  const user = JSON.parse(localStorage.getItem('tc_user')||'null');
+  if(user && user.role==='student'){
+    const key='tc_bookings_'+user.email;
+    const bks=JSON.parse(localStorage.getItem(key)||'[]');
+    // Avoid duplicates
+    if(!bks.find(b=>b.id===ref)){
+      bks.unshift({id:ref,tutorId:tutor.id,tutorName:tutor.name,date:bdate,time:btime,rate:tutor.rate,type:tutor.type,status:'pending'});
+      localStorage.setItem(key,JSON.stringify(bks));
+    }
+    document.getElementById('confirmSub').textContent = `Your request has been sent to ${tutor.name.split(' ')[0]}. They'll confirm within 24 hours.`;
+  }
+}
+</script>
+</body>
+</html>
