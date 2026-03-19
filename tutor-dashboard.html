@@ -226,9 +226,22 @@ function closeConfirm(){document.getElementById('confirmOv').classList.remove('o
 function confirmDelete(){
   const u=JSON.parse(localStorage.getItem('tc_user')||'null');
   if(!u)return;
+  // Remove from registered tutors if present
   const all=JSON.parse(localStorage.getItem('tc_registered_tutors')||'[]');
   localStorage.setItem('tc_registered_tutors',JSON.stringify(all.filter(t=>t.id!==u.tutorId)));
-  if(u.tutorId)localStorage.removeItem('tc_rev_'+u.tutorId);
+  // Remove reviews
+  if(u.tutorId) localStorage.removeItem('tc_rev_'+u.tutorId);
+  // Remove any bookings for this tutor
+  for(let i=localStorage.length-1;i>=0;i--){
+    const key=localStorage.key(i);
+    if(key&&key.startsWith('tc_bookings_')){
+      try{
+        const bks=JSON.parse(localStorage.getItem(key)||'[]');
+        localStorage.setItem(key,JSON.stringify(bks.filter(b=>b.tutorId!==u.tutorId)));
+      }catch(e){}
+    }
+  }
+  // Clear session and go home
   localStorage.removeItem('tc_user');
   location.href='index.html';
 }
