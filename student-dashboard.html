@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Dashboard – TutorCon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0A1628;--navy-mid:#132040;--gold:#D4A017;--gold-light:#F0C040;--cream:#FAF7F0;--white:#FFFFFF;--slate:#6B7A99;--green:#1A8C5B;--green-light:#22A86E;--red:#C0392B;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,22,40,0.97);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;border-bottom:2px solid var(--gold);}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-icon{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--navy);}
+    .nav-logo span{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700;}
+    .con{color:var(--gold);}
+    .nav-right{display:flex;align-items:center;gap:12px;}
+    .user-pill{background:rgba(212,160,23,0.15);border:1px solid rgba(212,160,23,0.3);color:var(--gold);padding:6px 14px;border-radius:50px;font-size:0.82rem;font-weight:600;}
+    .nav-link{color:rgba(255,255,255,0.65);text-decoration:none;font-size:0.82rem;padding:7px 13px;border:1.5px solid rgba(255,255,255,0.14);border-radius:6px;transition:all 0.2s;}
+    .nav-link:hover{color:var(--gold);border-color:rgba(212,160,23,0.4);}
+    .logout-btn{padding:7px 13px;border:1.5px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.55);border-radius:6px;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.8rem;transition:all 0.2s;}
+    .logout-btn:hover{border-color:var(--red);color:var(--red);}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:4px;}
+    .hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all 0.3s;}
+    .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+    .hamburger.open span:nth-child(2){opacity:0;}
+    .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+    .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(10,22,40,0.98);padding:20px 5%;flex-direction:column;gap:0;z-index:999;border-bottom:2px solid var(--gold);}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{color:rgba(255,255,255,0.85);text-decoration:none;font-size:0.97rem;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.07);}
+
+    .page{margin-top:68px;padding:34px 5% 80px;max-width:1060px;margin-left:auto;margin-right:auto;}
+
+    /* WELCOME */
+    .welcome{background:var(--navy);border-radius:20px;padding:30px 34px;display:flex;align-items:center;gap:22px;margin-bottom:28px;position:relative;overflow:hidden;}
+    .welcome::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(212,160,23,0.1) 0%,transparent 60%);}
+    .w-av{width:68px;height:68px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--navy);flex-shrink:0;position:relative;z-index:1;}
+    .w-txt{position:relative;z-index:1;}
+    .w-txt h1{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--white);margin-bottom:4px;}
+    .w-txt p{color:rgba(255,255,255,0.55);font-size:0.88rem;}
+    .w-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(26,140,91,0.2);border:1px solid rgba(26,140,91,0.4);color:#4ade80;padding:4px 12px;border-radius:50px;font-size:0.74rem;font-weight:700;margin-top:8px;}
+
+    /* TABS */
+    .dash-tabs{display:flex;gap:4px;background:rgba(10,22,40,0.08);border-radius:12px;padding:4px;margin-bottom:26px;}
+    .dash-tab{flex:1;padding:11px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:0.86rem;font-weight:600;color:var(--slate);border-radius:9px;cursor:pointer;transition:all 0.2s;text-align:center;}
+    .dash-tab.active{background:var(--navy);color:var(--white);}
+
+    .tab-panel{display:none;} .tab-panel.active{display:block;}
+
+    /* STATS */
+    .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:13px;margin-bottom:24px;}
+    .stat-box{background:var(--white);border-radius:13px;padding:18px;border:1px solid rgba(0,0,0,0.07);text-align:center;}
+    .snum{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--gold);font-weight:700;}
+    .slbl{font-size:0.75rem;color:var(--slate);margin-top:3px;}
+
+    /* BOOKING CARDS */
+    .booking-card{background:var(--white);border-radius:14px;padding:20px 22px;border:1px solid rgba(0,0,0,0.07);margin-bottom:13px;display:flex;align-items:center;gap:16px;transition:box-shadow 0.2s;}
+    .booking-card:hover{box-shadow:0 4px 18px rgba(0,0,0,0.08);}
+    .bk-av{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;flex-shrink:0;}
+    .bk-info{flex:1;}
+    .bk-name{font-weight:700;color:var(--navy);font-size:0.95rem;margin-bottom:2px;}
+    .bk-sub{font-size:0.8rem;color:var(--gold);font-weight:600;margin-bottom:2px;}
+    .bk-meta{font-size:0.77rem;color:var(--slate);}
+    .bk-status{padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:700;}
+    .status-confirmed{background:rgba(26,140,91,0.12);color:var(--green);}
+    .status-pending{background:rgba(212,160,23,0.12);color:#a07800;}
+    .status-completed{background:rgba(107,122,153,0.12);color:var(--slate);}
+    .bk-actions{display:flex;gap:8px;margin-left:auto;}
+    .bk-btn{padding:7px 14px;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.2s;border:1.5px solid;}
+    .bk-btn.msg{border-color:var(--navy);color:var(--navy);background:none;}
+    .bk-btn.msg:hover{background:var(--navy);color:#fff;}
+    .bk-btn.cancel{border-color:rgba(192,57,43,0.3);color:var(--red);background:none;}
+    .bk-btn.cancel:hover{background:var(--red);color:#fff;}
+
+    /* REVIEW CARDS */
+    .rev-card{background:var(--white);border-radius:14px;padding:18px 22px;border:1px solid rgba(0,0,0,0.07);margin-bottom:12px;}
+    .rev-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;}
+    .rev-tutor{font-weight:700;color:var(--navy);font-size:0.9rem;}
+    .rev-stars{color:var(--gold);font-size:0.85rem;}
+    .rev-date{font-size:0.72rem;color:var(--slate);margin-top:2px;}
+    .rev-txt{font-size:0.84rem;color:var(--slate);line-height:1.55;}
+
+    /* PROFILE FORM */
+    .profile-form{background:var(--white);border-radius:16px;padding:28px;border:1px solid rgba(0,0,0,0.07);}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .form-group{margin-bottom:16px;}
+    .form-group label{display:block;font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:6px;}
+    .form-group input,.form-group select{width:100%;padding:11px 13px;border:1.5px solid rgba(10,22,40,0.13);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--navy);background:var(--cream);outline:none;transition:border-color 0.2s;}
+    .form-group input:focus,.form-group select:focus{border-color:var(--gold);background:#fff;}
+    .save-btn{padding:11px 28px;background:var(--navy);color:#fff;border:none;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+    .save-btn:hover{background:var(--gold);color:var(--navy);}
+    .save-success{color:var(--green);font-size:0.85rem;margin-left:12px;display:none;}
+
+    /* EMPTY STATE */
+    .empty{text-align:center;padding:48px 20px;color:var(--slate);}
+    .empty .eicon{font-size:2.6rem;margin-bottom:11px;}
+    .empty h3{color:var(--navy);font-size:1rem;margin-bottom:7px;}
+    .empty p{font-size:0.85rem;line-height:1.6;margin-bottom:16px;}
+    .empty a{display:inline-block;padding:10px 24px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.85rem;transition:all 0.2s;}
+    .empty a:hover{background:var(--gold);color:var(--navy);}
+
+    /* MESSAGE MODAL */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;display:none;align-items:center;justify-content:center;padding:16px;}
+    .modal-overlay.open{display:flex;}
+    .modal{background:var(--white);border-radius:18px;max-width:500px;width:100%;max-height:88vh;overflow-y:auto;}
+    .modal-hdr{background:var(--navy);padding:24px 28px;border-radius:18px 18px 0 0;display:flex;align-items:center;justify-content:space-between;}
+    .modal-hdr h3{font-family:'Playfair Display',serif;color:#fff;font-size:1.2rem;}
+    .modal-close{background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;font-weight:700;}
+    .modal-body{padding:24px 28px;}
+    .msg-thread{max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:16px;padding:4px;}
+    .msg-bubble{max-width:78%;padding:10px 14px;border-radius:12px;font-size:0.86rem;line-height:1.5;}
+    .msg-bubble.mine{background:var(--navy);color:#fff;align-self:flex-end;border-radius:12px 12px 2px 12px;}
+    .msg-bubble.theirs{background:var(--cream);color:var(--navy);align-self:flex-start;border-radius:12px 12px 12px 2px;}
+    .msg-bubble .mtime{font-size:0.68rem;opacity:0.55;margin-top:4px;text-align:right;}
+    .msg-input-row{display:flex;gap:10px;}
+    .msg-input{flex:1;padding:11px 14px;border:1.5px solid rgba(10,22,40,0.13);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;}
+    .msg-input:focus{border-color:var(--gold);}
+    .msg-send{padding:11px 20px;background:var(--gold);color:var(--navy);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;}
+    .msg-send:hover{background:var(--gold-light);}
+
+    @media(max-width:700px){.form-grid{grid-template-columns:1fr;}.welcome{flex-direction:column;text-align:center;}.nav-right .nav-link{display:none;}.hamburger{display:flex;}}
+    @media(max-width:500px){.bk-actions{flex-direction:column;}.dash-tabs{flex-wrap:wrap;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><div class="logo-icon">T</div><span>Tutor<span class="con">Con</span></span></a>
+  <div class="nav-right">
+    <span class="user-pill" id="navName">👤 Student</span>
+    <a href="tutors.html" class="nav-link">Find Tutors</a>
+    <button class="logout-btn" onclick="doLogout()">Log Out</button>
+  </div>
+  <div class="hamburger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">🏠 Home</a>
+  <a href="tutors.html">🔍 Find Tutors</a>
+  <a href="about.html">ℹ️ About</a>
+  <a href="#" onclick="doLogout()" style="color:var(--red);">🚪 Log Out</a>
+</div>
+
+<div class="page">
+  <!-- WELCOME -->
+  <div class="welcome">
+    <div class="w-av" id="wAvatar">?</div>
+    <div class="w-txt">
+      <h1 id="wName">Welcome back!</h1>
+      <p id="wSub">Manage your bookings, messages and profile below.</p>
+      <div class="w-badge">🎓 TutorCon Student</div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-box"><div class="snum" id="statBookings">0</div><div class="slbl">Bookings Made</div></div>
+    <div class="stat-box"><div class="snum" id="statMessages">0</div><div class="slbl">Messages Sent</div></div>
+    <div class="stat-box"><div class="snum" id="statReviews">0</div><div class="slbl">Reviews Written</div></div>
+    <div class="stat-box"><div class="snum">Free</div><div class="slbl">Account Type</div></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="dash-tabs">
+    <button class="dash-tab active" onclick="showTab('bookings',this)">📅 My Bookings</button>
+    <button class="dash-tab" onclick="showTab('messages',this)">💬 Messages</button>
+    <button class="dash-tab" onclick="showTab('reviews',this)">⭐ My Reviews</button>
+    <button class="dash-tab" onclick="showTab('profile',this)">👤 My Profile</button>
+  </div>
+
+  <!-- BOOKINGS TAB -->
+  <div class="tab-panel active" id="tab-bookings">
+    <div id="bookingsList"></div>
+  </div>
+
+  <!-- MESSAGES TAB -->
+  <div class="tab-panel" id="tab-messages">
+    <div id="messagesList"></div>
+  </div>
+
+  <!-- REVIEWS TAB -->
+  <div class="tab-panel" id="tab-reviews">
+    <div id="reviewsList"></div>
+  </div>
+
+  <!-- PROFILE TAB -->
+  <div class="tab-panel" id="tab-profile">
+    <div class="profile-form">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin-bottom:20px;">My Profile</h3>
+      <div class="form-grid">
+        <div class="form-group"><label>First Name</label><input type="text" id="pfFirst" placeholder="First name"/></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="pfLast" placeholder="Last name"/></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="pfEmail" placeholder="your@email.com"/></div>
+      <div class="form-grid">
+        <div class="form-group"><label>Institution</label>
+          <select id="pfInst">
+            <option>UB</option><option>BUAN</option><option>Botho</option><option>BAC</option><option>ABM</option><option>BCET</option><option>Limkokwing</option><option>Secondary School</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Programme</label><input type="text" id="pfProg" placeholder="e.g. BSc Computer Science"/></div>
+      </div>
+      <button class="save-btn" onclick="saveProfile()">Save Changes</button>
+      <span class="save-success" id="saveMsg">✅ Saved!</span>
+    </div>
+  </div>
+</div>
+
+<!-- MESSAGE MODAL -->
+<div class="modal-overlay" id="msgOverlay" onclick="closeMsgOutside(event)">
+  <div class="modal">
+    <div class="modal-hdr">
+      <h3 id="msgTitle">Message</h3>
+      <button class="modal-close" onclick="closeMsg()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="msg-thread" id="msgThread"></div>
+      <div class="msg-input-row">
+        <input class="msg-input" id="msgInput" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendMsg()"/>
+        <button class="msg-send" onclick="sendMsg()">Send ✓</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentUser = null;
+let activeTutorId = null;
+
+function doLogout(){localStorage.removeItem('tc_user');location.href='index.html';}
+function toggleMenu(){document.getElementById('burger').classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');}
+
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.dash-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── DATA HELPERS ─────────────────────────────────────────────
+function getBookings(){ return JSON.parse(localStorage.getItem('tc_bookings_'+currentUser.email)||'[]'); }
+function saveBookings(b){ localStorage.setItem('tc_bookings_'+currentUser.email,JSON.stringify(b)); }
+function getMessages(tid){ return JSON.parse(localStorage.getItem('tc_msgs_'+currentUser.email+'_'+tid)||'[]'); }
+function saveMessages(tid,msgs){ localStorage.setItem('tc_msgs_'+currentUser.email+'_'+tid,JSON.stringify(msgs)); }
+function getMyReviews(){ return JSON.parse(localStorage.getItem('tc_myreviews_'+currentUser.email)||'[]'); }
+
+// ── ALL TUTORS ────────────────────────────────────────────────
+const SEED=[
+  {id:'t1',name:'Kagiso Moleleki',ini:'KM',color:'#D4A017',tc:'#0A1628',subject:'Mathematics & Statistics',inst:'UB',rate:80,type:'In-person'},
+  {id:'t2',name:'Tshepiso Sithole',ini:'TS',color:'#1A8C5B',tc:'#fff',subject:'Computer Science & IT',inst:'BUAN',rate:70,type:'Both'},
+  {id:'t3',name:'Neo Bogosing',ini:'NB',color:'#4A6FA5',tc:'#fff',subject:'Accounting & Finance',inst:'Botho',rate:65,type:'In-person'},
+  {id:'t4',name:'Lebogang Modise',ini:'LM',color:'#8E44AD',tc:'#fff',subject:'Biology & Chemistry',inst:'BAC',rate:55,type:'Both'},
+  {id:'t5',name:'Oratile Tau',ini:'OT',color:'#E74C3C',tc:'#fff',subject:'Economics & Business',inst:'UB',rate:75,type:'Online'},
+  {id:'t6',name:'Mpho Kefilwe',ini:'MK',color:'#16A085',tc:'#fff',subject:'Mathematics & Physics',inst:'BCET',rate:50,type:'In-person'},
+  {id:'t7',name:'Goitseone Ramotswe',ini:'GR',color:'#C0392B',tc:'#fff',subject:'English & Communication',inst:'Limkokwing',rate:45,type:'Both'},
+  {id:'t8',name:'Boitumelo Seleka',ini:'BS',color:'#2C3E50',tc:'#fff',subject:'Finance & Accounting',inst:'ABM',rate:85,type:'Online'},
+];
+function getAllTutors(){
+  const reg=JSON.parse(localStorage.getItem('tc_registered_tutors')||'[]');
+  return [...SEED,...reg];
+}
+function findTutor(id){return getAllTutors().find(t=>t.id===id);}
+
+// ── RENDER BOOKINGS ───────────────────────────────────────────
+function renderBookings(){
+  const bks=getBookings();
+  const el=document.getElementById('bookingsList');
+  document.getElementById('statBookings').textContent=bks.length;
+  if(!bks.length){
+    el.innerHTML=`<div class="empty"><div class="eicon">📅</div><h3>No bookings yet</h3><p>When you book a tutor, your sessions will appear here. Find a tutor and get started!</p><a href="tutors.html">Browse Tutors</a></div>`;
+    return;
+  }
+  el.innerHTML=bks.map(b=>{
+    const t=findTutor(b.tutorId)||{name:b.tutorName,ini:'?',color:'#ccc',tc:'#000',subject:'',rate:0,type:''};
+    const statusClass=`status-${b.status||'pending'}`;
+    const statusLabel=b.status==='confirmed'?'✅ Confirmed':b.status==='completed'?'Completed':'⏳ Pending';
+    return `<div class="booking-card">
+      <div class="bk-av" style="background:${t.color};color:${t.tc};">${t.ini||'?'}</div>
+      <div class="bk-info">
+        <div class="bk-name">${t.name||b.tutorName}</div>
+        <div class="bk-sub">${t.subject||''}</div>
+        <div class="bk-meta">📅 ${b.date} · ⏰ ${b.time} · P${t.rate}/hr · ${t.type||''}</div>
+      </div>
+      <span class="bk-status ${statusClass}">${statusLabel}</span>
+      <div class="bk-actions">
+        <button class="bk-btn msg" onclick="openMsg('${b.tutorId}','${t.name||b.tutorName}')">💬 Message</button>
+        ${b.status!=='completed'?`<button class="bk-btn cancel" onclick="cancelBooking('${b.id}')">Cancel</button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function cancelBooking(id){
+  if(!confirm('Cancel this booking?')) return;
+  const bks=getBookings().filter(b=>b.id!==id);
+  saveBookings(bks);
+  renderBookings();
+}
+
+// ── RENDER MESSAGES ───────────────────────────────────────────
+function renderMessagesList(){
+  const bks=getBookings();
+  const el=document.getElementById('messagesList');
+  // Build unique tutor conversations
+  const seen=new Set();
+  const convos=bks.filter(b=>{if(seen.has(b.tutorId))return false;seen.add(b.tutorId);return true;});
+  const allMsgs=convos.map(b=>({tid:b.tutorId,tname:b.tutorName,msgs:getMessages(b.tutorId)}));
+  const totalMsgs=allMsgs.reduce((s,c)=>s+c.msgs.length,0);
+  document.getElementById('statMessages').textContent=totalMsgs;
+  if(!convos.length){
+    el.innerHTML=`<div class="empty"><div class="eicon">💬</div><h3>No conversations yet</h3><p>Once you book a tutor, you can message them here to discuss session details.</p><a href="tutors.html">Find a Tutor</a></div>`;
+    return;
+  }
+  el.innerHTML=`<p style="color:var(--slate);font-size:0.85rem;margin-bottom:16px;">Tap a tutor to open the conversation.</p>`
+  +convos.map(b=>{
+    const t=findTutor(b.tutorId)||{color:'#ccc',tc:'#000',ini:'?'};
+    const msgs=getMessages(b.tutorId);
+    const last=msgs.length?msgs[msgs.length-1].text:'No messages yet';
+    return `<div class="booking-card" style="cursor:pointer;" onclick="openMsg('${b.tutorId}','${b.tutorName}')">
+      <div class="bk-av" style="background:${t.color};color:${t.tc};">${t.ini}</div>
+      <div class="bk-info">
+        <div class="bk-name">${b.tutorName}</div>
+        <div class="bk-meta" style="margin-top:4px;font-size:0.82rem;color:var(--slate);">${last.length>50?last.slice(0,50)+'…':last}</div>
+      </div>
+      <span style="color:var(--gold);font-size:1.2rem;">›</span>
+    </div>`;
+  }).join('');
+}
+
+// ── RENDER REVIEWS ────────────────────────────────────────────
+function renderReviews(){
+  const revs=getMyReviews();
+  const el=document.getElementById('reviewsList');
+  document.getElementById('statReviews').textContent=revs.length;
+  if(!revs.length){
+    el.innerHTML=`<div class="empty"><div class="eicon">⭐</div><h3>No reviews written yet</h3><p>After a session, open a tutor's profile and leave an honest review. Your feedback helps other students choose the right tutor.</p><a href="tutors.html">Browse Tutors</a></div>`;
+    return;
+  }
+  el.innerHTML=revs.map(r=>`
+    <div class="rev-card">
+      <div class="rev-top">
+        <div><div class="rev-tutor">Review for ${r.tutorName}</div><div class="rev-date">${r.date}</div></div>
+        <div class="rev-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      </div>
+      <div class="rev-txt">${r.text}</div>
+    </div>`).join('');
+}
+
+// ── PROFILE ───────────────────────────────────────────────────
+function loadProfile(){
+  document.getElementById('pfFirst').value=currentUser.firstName||'';
+  document.getElementById('pfLast').value=currentUser.lastName||'';
+  document.getElementById('pfEmail').value=currentUser.email||'';
+  document.getElementById('pfInst').value=currentUser.inst||'UB';
+  document.getElementById('pfProg').value=currentUser.programme||'';
+}
+function saveProfile(){
+  currentUser.firstName=document.getElementById('pfFirst').value;
+  currentUser.lastName=document.getElementById('pfLast').value;
+  currentUser.inst=document.getElementById('pfInst').value;
+  currentUser.programme=document.getElementById('pfProg').value;
+  localStorage.setItem('tc_user',JSON.stringify(currentUser));
+  const sm=document.getElementById('saveMsg');
+  sm.style.display='inline';
+  setTimeout(()=>sm.style.display='none',2500);
+  document.getElementById('navName').textContent='👤 '+currentUser.firstName;
+  document.getElementById('wName').textContent='Hey, '+currentUser.firstName+'! 👋';
+  document.getElementById('wAvatar').textContent=(currentUser.firstName||'?')[0].toUpperCase();
+}
+
+// ── MESSAGING ─────────────────────────────────────────────────
+function openMsg(tid,tname){
+  activeTutorId=tid;
+  document.getElementById('msgTitle').textContent='💬 '+tname;
+  renderThread();
+  document.getElementById('msgOverlay').classList.add('open');
+  setTimeout(()=>{const th=document.getElementById('msgThread');th.scrollTop=th.scrollHeight;},50);
+}
+function closeMsg(){document.getElementById('msgOverlay').classList.remove('open');activeTutorId=null;}
+function closeMsgOutside(e){if(e.target===document.getElementById('msgOverlay'))closeMsg();}
+
+function renderThread(){
+  const msgs=getMessages(activeTutorId);
+  const t=findTutor(activeTutorId);
+  const tname=t?t.name.split(' ')[0]:'Tutor';
+  if(!msgs.length){
+    document.getElementById('msgThread').innerHTML=`
+      <div style="text-align:center;padding:20px;color:var(--slate);font-size:0.86rem;">
+        Start the conversation! Introduce yourself and let ${tname} know what you need help with.
+      </div>`;
+    return;
+  }
+  document.getElementById('msgThread').innerHTML=msgs.map(m=>`
+    <div class="msg-bubble ${m.from==='student'?'mine':'theirs'}">
+      ${m.text}
+      <div class="mtime">${m.time}</div>
+    </div>`).join('');
+  const th=document.getElementById('msgThread');
+  th.scrollTop=th.scrollHeight;
+}
+
+function sendMsg(){
+  const inp=document.getElementById('msgInput');
+  const text=inp.value.trim();
+  if(!text||!activeTutorId) return;
+  const msgs=getMessages(activeTutorId);
+  const now=new Date();
+  msgs.push({from:'student',text,time:now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+  saveMessages(activeTutorId,msgs);
+  inp.value='';
+  renderThread();
+  // Simulate tutor auto-reply after 1.5s
+  const t=findTutor(activeTutorId);
+  const replies=[
+    `Hi! Thanks for reaching out. I'd be happy to help with that.`,
+    `Sure! Let's schedule a session. When are you free?`,
+    `Great question. I cover that topic thoroughly in my sessions.`,
+    `I'm available this week. Let me know your preferred time.`,
+    `Sounds good! We can do an in-person or online session — your choice.`
+  ];
+  setTimeout(()=>{
+    const m2=getMessages(activeTutorId);
+    m2.push({from:'tutor',text:replies[Math.floor(Math.random()*replies.length)],time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+    saveMessages(activeTutorId,m2);
+    if(document.getElementById('msgOverlay').classList.contains('open')&&activeTutorId===activeTutorId) renderThread();
+    document.getElementById('statMessages').textContent=parseInt(document.getElementById('statMessages').textContent||0)+2;
+  },1500);
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+(function(){
+  currentUser=JSON.parse(localStorage.getItem('tc_user')||'null');
+  if(!currentUser||currentUser.role!=='student'){location.href='login.html';return;}
+  document.getElementById('navName').textContent='👤 '+(currentUser.firstName||currentUser.email.split('@')[0]);
+  document.getElementById('wName').textContent='Hey, '+(currentUser.firstName||'there')+'! 👋';
+  document.getElementById('wAvatar').textContent=(currentUser.firstName||'S')[0].toUpperCase();
+  loadProfile();
+  renderBookings();
+  renderMessagesList();
+  renderReviews();
+})();
+</script>
+</body>
+</html>
