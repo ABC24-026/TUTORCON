@@ -122,6 +122,45 @@
     .upgrade-btn{padding:8px 16px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.81rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
     .upgrade-btn:hover{background:var(--gold-light);}
 
+    /* BOOKING REQUESTS */
+    .bk-req{background:var(--white);border-radius:14px;border:1px solid rgba(0,0,0,0.07);padding:18px 20px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;transition:box-shadow 0.2s;}
+    .bk-req:hover{box-shadow:0 4px 18px rgba(0,0,0,0.07);}
+    .req-av{width:46px;height:46px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;flex-shrink:0;}
+    .req-info{flex:1;min-width:0;}
+    .req-name{font-weight:700;color:var(--navy);font-size:0.93rem;margin-bottom:2px;}
+    .req-meta{font-size:0.79rem;color:var(--slate);line-height:1.6;margin-bottom:7px;}
+    .req-note{font-size:0.81rem;color:var(--navy);background:var(--cream);border-radius:8px;padding:8px 11px;margin-bottom:10px;line-height:1.5;border-left:3px solid var(--gold);}
+    .req-actions{display:flex;gap:8px;flex-wrap:wrap;}
+    .req-btn{padding:7px 16px;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:700;cursor:pointer;transition:all 0.2s;border:1.5px solid;}
+    .req-accept{background:var(--green);color:#fff;border-color:var(--green);}
+    .req-accept:hover{background:#157a4e;}
+    .req-decline{background:none;color:var(--red);border-color:rgba(192,57,43,0.35);}
+    .req-decline:hover{background:var(--red);color:#fff;}
+    .req-msg{background:none;color:var(--navy);border-color:rgba(10,22,40,0.2);}
+    .req-msg:hover{background:var(--navy);color:#fff;}
+    .req-badge{display:inline-block;padding:3px 9px;border-radius:50px;font-size:0.68rem;font-weight:700;margin-bottom:6px;}
+    .rb-pending{background:rgba(212,160,23,0.15);color:#a07800;}
+    .rb-confirmed{background:rgba(26,140,91,0.15);color:var(--green);}
+    .rb-declined{background:rgba(192,57,43,0.1);color:var(--red);}
+    .notif-dot{display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-left:5px;vertical-align:middle;}
+
+    /* MSG MODAL */
+    .msg-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:3000;display:none;align-items:center;justify-content:center;padding:16px;}
+    .msg-overlay.open{display:flex;}
+    .msg-modal{background:var(--white);border-radius:18px;max-width:480px;width:100%;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;}
+    .msg-hdr{background:var(--navy);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+    .msg-hdr h3{font-family:'Playfair Display',serif;color:#fff;font-size:1.1rem;}
+    .msg-close{background:rgba(255,255,255,0.15);border:none;color:#fff;width:27px;height:27px;border-radius:50%;cursor:pointer;font-size:1rem;font-weight:700;}
+    .msg-thread{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:9px;}
+    .msg-bubble{max-width:80%;padding:9px 13px;border-radius:12px;font-size:0.85rem;line-height:1.5;}
+    .msg-bubble.mine{background:var(--navy);color:#fff;align-self:flex-end;border-radius:12px 12px 2px 12px;}
+    .msg-bubble.theirs{background:var(--cream);color:var(--navy);align-self:flex-start;border-radius:12px 12px 12px 2px;}
+    .msg-bubble .mt{font-size:0.67rem;opacity:0.5;margin-top:3px;text-align:right;}
+    .msg-footer{padding:14px 16px;border-top:1px solid rgba(0,0,0,0.07);display:flex;gap:9px;flex-shrink:0;}
+    .msg-inp{flex:1;padding:10px 13px;border:1.5px solid rgba(10,22,40,0.13);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.86rem;outline:none;}
+    .msg-inp:focus{border-color:var(--gold);}
+    .msg-send{padding:10px 18px;background:var(--gold);color:var(--navy);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.84rem;cursor:pointer;}
+
     /* DANGER */
     .danger-zone{margin-top:18px;padding:16px 18px;background:rgba(192,57,43,0.05);border:1.5px solid rgba(192,57,43,0.18);border-radius:11px;}
     .danger-zone h4{font-size:0.83rem;font-weight:700;color:var(--red);margin-bottom:4px;}
@@ -267,14 +306,24 @@ function buildDash(u,profile){
       <div class="stat-box"><div class="snum">${reviews.length}</div><div class="slbl">Reviews</div></div>
       <div class="stat-box"><div class="snum">${rating||'—'}</div><div class="slbl">Avg Rating</div></div>
       <div class="stat-box"><div class="snum">P${profile.rate}</div><div class="slbl">Your Rate/hr</div></div>
+      <div class="stat-box"><div class="snum" id="statPending">—</div><div class="slbl">Pending Requests</div></div>
       <div class="stat-box"><div class="snum">${isPrem?'⭐':'●'}</div><div class="slbl">${isPrem?'Premium':'Basic'}</div></div>
     </div>
 
     <div class="dash-tabs">
       <button class="dash-tab active" onclick="showTab('overview',this)">📊 Overview</button>
+      <button class="dash-tab" onclick="showTab('bookings',this)" id="bookingsTab">📅 Bookings<span class="notif-dot" id="notifDot" style="display:none;"></span></button>
       <button class="dash-tab" onclick="showTab('edit',this)">✏️ Edit Profile</button>
       <button class="dash-tab" onclick="showTab('reviews',this)">⭐ Reviews (${reviews.length})</button>
       <button class="dash-tab" onclick="showTab('settings',this)">⚙️ Settings</button>
+    </div>
+
+    <!-- BOOKINGS TAB -->
+    <div class="tab-panel" id="tab-bookings">
+      <div class="dash-card">
+        <div class="card-title">Booking Requests</div>
+        <div id="bookingReqList"><p style="color:var(--slate);font-size:0.85rem;">Loading…</p></div>
+      </div>
     </div>
 
     <!-- OVERVIEW TAB -->
@@ -367,6 +416,132 @@ function buildDash(u,profile){
     </div>`;
 }
 
+// ── BOOKING REQUESTS ─────────────────────────────────────────
+let activeMsgKey = null;
+
+function getAllBookingsForTutor(tutorId) {
+  const results = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (!key || !key.startsWith('tc_bookings_')) continue;
+    const studentEmail = key.replace('tc_bookings_', '');
+    try {
+      const bookings = JSON.parse(localStorage.getItem(key) || '[]');
+      bookings.forEach(b => {
+        if (b.tutorId === tutorId) results.push({...b, studentEmail, storageKey: key});
+      });
+    } catch(e) {}
+  }
+  return results.sort((a,b) => {
+    if (a.status==='pending' && b.status!=='pending') return -1;
+    if (b.status==='pending' && a.status!=='pending') return 1;
+    return 0;
+  });
+}
+
+function updateBookingStatus(storageKey, bookingId, newStatus) {
+  const bookings = JSON.parse(localStorage.getItem(storageKey) || '[]');
+  const idx = bookings.findIndex(b => b.id === bookingId);
+  if (idx !== -1) { bookings[idx].status = newStatus; localStorage.setItem(storageKey, JSON.stringify(bookings)); }
+}
+
+function renderBookingRequests(tutorId) {
+  const el = document.getElementById('bookingReqList');
+  if (!el) return;
+  const reqs = getAllBookingsForTutor(tutorId);
+  const pending = reqs.filter(r => r.status === 'pending').length;
+  const statEl = document.getElementById('statPending');
+  const dotEl  = document.getElementById('notifDot');
+  if (statEl) statEl.textContent = pending;
+  if (dotEl)  dotEl.style.display = pending > 0 ? 'inline-block' : 'none';
+
+  if (!reqs.length) {
+    el.innerHTML = `
+      <div style="text-align:center;padding:36px 20px;background:var(--cream);border-radius:12px;border:1.5px dashed rgba(10,22,40,0.12);">
+        <div style="font-size:2.2rem;margin-bottom:10px;">📅</div>
+        <h4 style="color:var(--navy);font-size:0.95rem;font-weight:700;margin-bottom:6px;">No booking requests yet</h4>
+        <p style="color:var(--slate);font-size:0.82rem;line-height:1.6;">When students book a session with you, their requests will appear here. Make sure your profile looks great!</p>
+        <a href="tutors.html" style="display:inline-block;margin-top:14px;padding:9px 20px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.82rem;">View My Listing</a>
+      </div>`;
+    return;
+  }
+
+  el.innerHTML = reqs.map(req => {
+    const ini = (req.studentEmail || 'S')[0].toUpperCase();
+    const sc = req.status==='confirmed' ? 'rb-confirmed' : req.status==='declined' ? 'rb-declined' : 'rb-pending';
+    const sl = req.status==='confirmed' ? '✅ Confirmed' : req.status==='declined' ? '❌ Declined' : '⏳ Pending';
+    const actions = req.status==='pending'
+      ? `<button class="req-btn req-accept" onclick="acceptReq('${req.storageKey}','${req.id}')">✓ Accept</button>
+         <button class="req-btn req-decline" onclick="declineReq('${req.storageKey}','${req.id}')">✕ Decline</button>
+         <button class="req-btn req-msg" onclick="openTutorMsg('${req.studentEmail}')">💬 Message</button>`
+      : `<button class="req-btn req-msg" onclick="openTutorMsg('${req.studentEmail}')">💬 Message Student</button>`;
+    return `<div class="bk-req">
+      <div class="req-av">${ini}</div>
+      <div class="req-info">
+        <span class="req-badge ${sc}">${sl}</span>
+        <div class="req-name">${req.studentEmail}</div>
+        <div class="req-meta">📅 ${req.date||'Date TBC'} &nbsp;·&nbsp; ⏰ ${req.time||'Time TBC'} &nbsp;·&nbsp; 💻 ${req.type||'TBC'}<br>🔖 Ref: <strong>${req.id}</strong></div>
+        ${req.note ? `<div class="req-note">📝 "${req.note}"</div>` : ''}
+        <div class="req-actions">${actions}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function acceptReq(storageKey, bookingId) {
+  updateBookingStatus(storageKey, bookingId, 'confirmed');
+  const u = JSON.parse(localStorage.getItem('tc_user')||'{}');
+  renderBookingRequests(u.tutorId);
+  showToast('✅ Booking confirmed! The student can see this in their dashboard.');
+}
+function declineReq(storageKey, bookingId) {
+  if (!confirm('Decline this booking request?')) return;
+  updateBookingStatus(storageKey, bookingId, 'declined');
+  const u = JSON.parse(localStorage.getItem('tc_user')||'{}');
+  renderBookingRequests(u.tutorId);
+  showToast('Booking declined.');
+}
+
+// ── MESSAGING ────────────────────────────────────────────────
+function openTutorMsg(studentEmail) {
+  const u = JSON.parse(localStorage.getItem('tc_user')||'{}');
+  activeMsgKey = 'tc_msgs_' + studentEmail + '_' + (u.tutorId || 'tutor');
+  document.getElementById('msgModalTitle').textContent = '💬 ' + studentEmail;
+  renderTutorThread();
+  document.getElementById('tutorMsgOverlay').classList.add('open');
+  setTimeout(() => { const th=document.getElementById('tutorMsgThread'); th.scrollTop=th.scrollHeight; }, 60);
+}
+function closeTutorMsg() { document.getElementById('tutorMsgOverlay').classList.remove('open'); activeMsgKey=null; }
+function renderTutorThread() {
+  if (!activeMsgKey) return;
+  const msgs = JSON.parse(localStorage.getItem(activeMsgKey)||'[]');
+  const el = document.getElementById('tutorMsgThread');
+  if (!msgs.length) { el.innerHTML=`<div style="text-align:center;padding:24px;color:var(--slate);font-size:0.85rem;">No messages yet. Say hello!</div>`; return; }
+  el.innerHTML = msgs.map(m=>`<div class="msg-bubble ${m.from==='tutor'?'mine':'theirs'}">${m.text}<div class="mt">${m.time}</div></div>`).join('');
+  el.scrollTop = el.scrollHeight;
+}
+function sendTutorMsg() {
+  if (!activeMsgKey) return;
+  const inp = document.getElementById('tutorMsgInput');
+  const text = inp.value.trim(); if (!text) return;
+  const msgs = JSON.parse(localStorage.getItem(activeMsgKey)||'[]');
+  msgs.push({from:'tutor', text, time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+  localStorage.setItem(activeMsgKey, JSON.stringify(msgs));
+  inp.value=''; renderTutorThread();
+}
+
+// ── TOAST ────────────────────────────────────────────────────
+function showToast(msg) {
+  let t = document.getElementById('tcToast');
+  if (!t) {
+    t = document.createElement('div'); t.id='tcToast';
+    t.style.cssText='position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 24px;border-radius:50px;font-size:0.85rem;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.2);opacity:0;transition:opacity 0.3s;pointer-events:none;';
+    document.body.appendChild(t);
+  }
+  t.textContent=msg; t.style.opacity='1';
+  clearTimeout(t._t); t._t=setTimeout(()=>{ t.style.opacity='0'; }, 2800);
+}
+
 (function(){
   const u=JSON.parse(localStorage.getItem('tc_user')||'null');
   if(!u||u.role!=='tutor'){location.href='login.html';return;}
@@ -376,7 +551,25 @@ function buildDash(u,profile){
     profile={id:u.tutorId||'demo_t',name:`${u.firstName||''} ${u.lastName||''}`.trim()||'Demo Tutor',ini:((u.firstName||'D')[0]+(u.lastName||'T')[0]).toUpperCase(),color:'#D4A017',tc:'#0A1628',subject:'Your Subject',inst:'Your Institution',plan:u.plan||'basic',rating:0,rate:70,type:'Both',bio:'Your bio.',subjects:[],avail:'Flexible',passRate:'New tutor',isNew:true,reviews:[]};
   }
   buildDash(u,profile);
+  // Render booking requests after DOM is built
+  setTimeout(() => renderBookingRequests(u.tutorId), 0);
 })();
 </script>
+
+<!-- TUTOR MESSAGE MODAL -->
+<div class="msg-overlay" id="tutorMsgOverlay" onclick="if(event.target===this)closeTutorMsg()">
+  <div class="msg-modal">
+    <div class="msg-hdr">
+      <h3 id="msgModalTitle">Message</h3>
+      <button class="msg-close" onclick="closeTutorMsg()">✕</button>
+    </div>
+    <div class="msg-thread" id="tutorMsgThread"></div>
+    <div class="msg-footer">
+      <input class="msg-inp" id="tutorMsgInput" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendTutorMsg()"/>
+      <button class="msg-send" onclick="sendTutorMsg()">Send ✓</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
