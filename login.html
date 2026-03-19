@@ -6,213 +6,173 @@
   <title>Log In – TutorCon</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --navy: #0A1628; --navy-mid: #132040; --gold: #D4A017; --gold-light: #F0C040;
-      --cream: #FAF7F0; --white: #FFFFFF; --slate: #6B7A99; --green: #1A8C5B; --red: #C0392B;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--navy); min-height: 100vh; display: flex; }
+    :root { --navy:#0A1628;--navy-mid:#132040;--gold:#D4A017;--gold-light:#F0C040;--cream:#FAF7F0;--white:#FFFFFF;--slate:#6B7A99;--green:#1A8C5B;--red:#C0392B; }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;display:flex;}
 
     /* LEFT PANEL */
-    .left-panel {
-      flex: 1; background: var(--navy-mid); display: flex; flex-direction: column;
-      justify-content: center; padding: 60px;
-      position: relative; overflow: hidden;
-    }
-    .left-panel::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 30% 60%, rgba(212,160,23,0.12) 0%, transparent 60%);
-    }
-    .left-panel::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 50px 50px;
-    }
-    .panel-content { position: relative; z-index: 2; }
-    .panel-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-bottom: 60px; }
-    .logo-icon { width: 40px; height: 40px; background: var(--gold); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: var(--navy); }
-    .panel-logo span { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--white); font-weight: 700; }
-    .panel-logo .con { color: var(--gold); }
-    .panel-content h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--white); line-height: 1.2; margin-bottom: 16px; }
-    .panel-content h1 em { color: var(--gold); font-style: normal; }
-    .panel-content p { color: rgba(255,255,255,0.6); font-size: 1rem; line-height: 1.7; max-width: 360px; margin-bottom: 48px; }
-    .testimonial {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px; padding: 24px;
-    }
-    .testimonial p { color: rgba(255,255,255,0.8); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px; }
-    .testimonial-author { display: flex; align-items: center; gap: 12px; }
-    .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--navy); font-size: 0.9rem; }
-    .author-info .name { color: var(--white); font-weight: 600; font-size: 0.9rem; }
-    .author-info .role { color: rgba(255,255,255,0.5); font-size: 0.8rem; }
+    .left{flex:1;background:var(--navy-mid);display:flex;flex-direction:column;justify-content:center;padding:60px;position:relative;overflow:hidden;}
+    .left::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(212,160,23,0.1) 0%,transparent 60%);}
+    .left::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:50px 50px;}
+    .left-inner{position:relative;z-index:2;}
+    .panel-logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:56px;}
+    .logo-icon{width:40px;height:40px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--navy);}
+    .panel-logo span{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--white);font-weight:700;}
+    .con{color:var(--gold);}
+    .left-inner h1{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--white);line-height:1.2;margin-bottom:14px;}
+    .left-inner h1 em{color:var(--gold);font-style:normal;}
+    .left-inner > p{color:rgba(255,255,255,0.55);font-size:0.97rem;line-height:1.75;max-width:340px;margin-bottom:44px;}
+    .testi{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:22px;}
+    .testi p{color:rgba(255,255,255,0.8);font-size:0.9rem;line-height:1.6;margin-bottom:14px;}
+    .testi-author{display:flex;align-items:center;gap:12px;}
+    .t-av{width:38px;height:38px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy);font-size:0.85rem;}
+    .t-name{color:var(--white);font-weight:600;font-size:0.88rem;}
+    .t-role{color:rgba(255,255,255,0.45);font-size:0.76rem;}
 
     /* RIGHT PANEL */
-    .right-panel {
-      width: 480px; background: var(--cream); display: flex; flex-direction: column;
-      justify-content: center; padding: 60px 50px;
-    }
-    .form-header { margin-bottom: 36px; }
-    .form-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--navy); margin-bottom: 8px; }
-    .form-header p { color: var(--slate); font-size: 0.9rem; }
-    .form-header p a { color: var(--gold); text-decoration: none; font-weight: 600; }
+    .right{width:460px;background:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:56px 46px;}
+    .form-hdr{margin-bottom:32px;}
+    .form-hdr h2{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--navy);margin-bottom:7px;}
+    .form-hdr p{color:var(--slate);font-size:0.88rem;}
+    .form-hdr p a{color:var(--gold);text-decoration:none;font-weight:600;}
 
     /* TABS */
-    .tab-row { display: flex; background: rgba(10,22,40,0.08); border-radius: 10px; padding: 4px; margin-bottom: 30px; }
-    .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--slate); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-    .tab-btn.active { background: var(--navy); color: var(--white); }
+    .tab-row{display:flex;background:rgba(10,22,40,0.08);border-radius:10px;padding:4px;margin-bottom:28px;}
+    .tab-btn{flex:1;padding:10px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:600;color:var(--slate);border-radius:7px;cursor:pointer;transition:all 0.2s;}
+    .tab-btn.active{background:var(--navy);color:var(--white);}
 
     /* FORM */
-    .form-group { margin-bottom: 20px; }
-    label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
-    input[type="email"], input[type="password"], input[type="text"] {
-      width: 100%; padding: 13px 16px; border: 1.5px solid rgba(10,22,40,0.15);
-      border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
-      background: var(--white); color: var(--navy); outline: none; transition: border-color 0.2s;
-    }
-    input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,160,23,0.12); }
-    .input-row { display: flex; gap: 12px; }
-    .form-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-    .remember { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--slate); cursor: pointer; }
-    .remember input[type="checkbox"] { accent-color: var(--gold); width: 16px; height: 16px; }
-    .forgot { color: var(--gold); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
-    .btn-login {
-      width: 100%; padding: 14px; background: var(--navy); color: var(--white);
-      border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif;
-      font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
-    }
-    .btn-login:hover { background: var(--gold); color: var(--navy); transform: translateY(-1px); }
-    .divider { text-align: center; color: var(--slate); font-size: 0.82rem; margin: 20px 0; position: relative; }
-    .divider::before { content: ''; position: absolute; left: 0; top: 50%; width: 40%; height: 1px; background: rgba(0,0,0,0.1); }
-    .divider::after { content: ''; position: absolute; right: 0; top: 50%; width: 40%; height: 1px; background: rgba(0,0,0,0.1); }
-    .btn-google {
-      width: 100%; padding: 13px; border: 1.5px solid rgba(10,22,40,0.15);
-      background: var(--white); border-radius: 10px; font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem; font-weight: 600; color: var(--navy); cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s;
-    }
-    .btn-google:hover { border-color: var(--navy); background: var(--cream); }
+    .form-group{margin-bottom:18px;}
+    label{display:block;font-size:0.83rem;font-weight:600;color:var(--navy);margin-bottom:7px;}
+    input[type="email"],input[type="password"]{width:100%;padding:13px 15px;border:1.5px solid rgba(10,22,40,0.14);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.93rem;background:var(--white);color:var(--navy);outline:none;transition:border-color 0.2s;}
+    input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,160,23,0.1);}
+    .form-opts{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
+    .remember{display:flex;align-items:center;gap:7px;font-size:0.83rem;color:var(--slate);cursor:pointer;}
+    .remember input{accent-color:var(--gold);width:15px;height:15px;}
+    .forgot{color:var(--gold);text-decoration:none;font-size:0.83rem;font-weight:600;}
+    .forgot:hover{text-decoration:underline;}
+    .btn-login{width:100%;padding:14px;background:var(--navy);color:var(--white);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.97rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+    .btn-login:hover{background:var(--gold);color:var(--navy);}
 
-    /* ALERT */
-    .alert { padding: 12px 16px; border-radius: 8px; font-size: 0.88rem; margin-bottom: 20px; display: none; }
-    .alert-error { background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.3); color: var(--red); }
-    .alert-success { background: rgba(26,140,91,0.1); border: 1px solid rgba(26,140,91,0.3); color: var(--green); }
+    /* DEMO HINT */
+    .demo-hint{background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);border-radius:10px;padding:14px 16px;margin-top:20px;}
+    .demo-hint p{font-size:0.8rem;color:var(--navy);line-height:1.6;}
+    .demo-hint strong{color:var(--gold);}
 
-    @media (max-width: 900px) {
-      .left-panel { display: none; }
-      .right-panel { width: 100%; }
-    }
+    /* ALERTS */
+    .alert{padding:11px 15px;border-radius:8px;font-size:0.86rem;margin-bottom:18px;display:none;}
+    .alert-error{background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.25);color:var(--red);}
+    .alert-success{background:rgba(26,140,91,0.1);border:1px solid rgba(26,140,91,0.25);color:var(--green);}
+
+    @media(max-width:860px){.left{display:none;}.right{width:100%;}}
   </style>
 </head>
 <body>
 
-<div class="left-panel">
-  <div class="panel-content">
+<div class="left">
+  <div class="left-inner">
     <a href="index.html" class="panel-logo">
       <div class="logo-icon">T</div>
       <span>Tutor<span class="con">Con</span></span>
     </a>
-    <h1>Your Academic <em>Success</em> Starts Here</h1>
-    <p>Connect with verified tutors from Gaborone's top institutions. Book sessions, track progress, and excel.</p>
-    <div class="testimonial">
-      <p>"TutorCon helped me find a UB tutor for my BSc modules when my campus had no one available. I passed with distinction!"</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">KS</div>
-        <div class="author-info">
-          <div class="name">Keamogetse Setlhare</div>
-          <div class="role">BUAN Student, BSc Computer Science</div>
+    <h1>Your grades.<br>Your <em>terms.</em></h1>
+    <p>Book a tutor who knows your exact course, at a time that actually works for you.</p>
+    <div class="testi">
+      <p>"I was failing Stats and couldn't find anyone at campus. Found a UB tutor on TutorCon in 20 minutes. Passed with a B+."</p>
+      <div class="testi-author">
+        <div class="t-av">KS</div>
+        <div>
+          <div class="t-name">Keamogetse Setlhare</div>
+          <div class="t-role">BUAN · BSc Computer Science</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="right-panel">
-  <div class="form-header">
-    <h2>Welcome Back</h2>
-    <p>Don't have an account? <a href="register.html">Sign up free</a></p>
+<div class="right">
+  <div class="form-hdr">
+    <h2>Welcome back</h2>
+    <p>New here? <a href="register.html">Create a free account</a></p>
   </div>
 
   <div class="tab-row">
-    <button class="tab-btn active" onclick="setRole('student', this)">I'm a Student</button>
-    <button class="tab-btn" onclick="setRole('tutor', this)">I'm a Tutor</button>
+    <button class="tab-btn active" onclick="setRole('student',this)">I'm a Student</button>
+    <button class="tab-btn" onclick="setRole('tutor',this)">I'm a Tutor</button>
   </div>
 
-  <div class="alert alert-error" id="errorAlert">❌ Invalid email or password. Please try again.</div>
-  <div class="alert alert-success" id="successAlert">✅ Login successful! Redirecting…</div>
+  <div class="alert alert-error" id="errAlert">❌ Email or password is incorrect. Try again.</div>
+  <div class="alert alert-success" id="sucAlert">✅ Logged in! Redirecting…</div>
 
-  <form id="loginForm" onsubmit="handleLogin(event)">
+  <form id="loginForm" onsubmit="doLogin(event)">
     <div class="form-group">
       <label>Email Address</label>
-      <input type="email" id="email" placeholder="you@university.ac.bw" required />
+      <input type="email" id="emailIn" placeholder="you@university.ac.bw" required/>
     </div>
     <div class="form-group">
       <label>Password</label>
-      <input type="password" id="password" placeholder="••••••••" required />
+      <input type="password" id="passIn" placeholder="••••••••" required/>
     </div>
-    <div class="form-options">
-      <label class="remember"><input type="checkbox" /> Remember me</label>
+    <div class="form-opts">
+      <label class="remember"><input type="checkbox"/> Remember me</label>
       <a href="#" class="forgot">Forgot password?</a>
     </div>
-    <button type="submit" class="btn-login">Log In to TutorCon →</button>
+    <button type="submit" class="btn-login">Log In →</button>
   </form>
 
-  <div class="divider">or continue with</div>
-  <button class="btn-google">
-    <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.962L3.964 7.294C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
-    Continue with Google
-  </button>
-
-  <p style="text-align:center; margin-top:24px; color:var(--slate); font-size:0.82rem;">
-    By logging in, you agree to our <a href="#" style="color:var(--gold);">Terms of Service</a> and <a href="#" style="color:var(--gold);">Privacy Policy</a>.
-  </p>
+  <div class="demo-hint">
+    <p>🔑 <strong>Demo accounts:</strong><br>
+    Student: <strong>demo@tutorcon.bw</strong> / <strong>demo</strong><br>
+    Tutor: <strong>tutor@tutorcon.bw</strong> / <strong>tutor456</strong></p>
+  </div>
 </div>
 
 <script>
   let currentRole = 'student';
-  function setRole(role, btn) {
-    currentRole = role;
+  function setRole(r, btn) {
+    currentRole = r;
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   }
 
-  function handleLogin(e) {
+  function doLogin(e) {
     e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const errAlert = document.getElementById('errorAlert');
-    const sucAlert = document.getElementById('successAlert');
-    errAlert.style.display = 'none';
-    sucAlert.style.display = 'none';
+    const email = document.getElementById('emailIn').value.trim();
+    const pass  = document.getElementById('passIn').value;
+    document.getElementById('errAlert').style.display = 'none';
+    document.getElementById('sucAlert').style.display = 'none';
 
-    // Demo credentials
-    // Check demo/seed accounts
-    const seedAccounts = [
-      { email: 'student@tutorcon.bw', password: 'password123', role: 'student', firstName:'Demo', lastName:'Student' },
-      { email: 'tutor@tutorcon.bw',   password: 'tutor456',    role: 'tutor',   firstName:'Demo', lastName:'Tutor'   },
-      { email: 'demo@tutorcon.bw',    password: 'demo',        role: 'student', firstName:'Demo', lastName:'User'    },
+    // Seed demo accounts
+    const seeds = [
+      {email:'student@tutorcon.bw', password:'password123', role:'student', firstName:'Demo', lastName:'Student'},
+      {email:'tutor@tutorcon.bw',   password:'tutor456',    role:'tutor',   firstName:'Demo', lastName:'Tutor'},
+      {email:'demo@tutorcon.bw',    password:'demo',        role:'student', firstName:'Demo', lastName:'User'},
     ];
 
-    // Also check registered users
-    const registeredTutors = JSON.parse(localStorage.getItem('tc_registered_tutors')||'[]');
-    const regMatch = registeredTutors.find(t => t.email === email);
+    // Check registered tutors
+    const regTutors = JSON.parse(localStorage.getItem('tc_registered_tutors')||'[]');
+    const regMatch  = regTutors.find(t => t.email === email);
 
-    const seedMatch = seedAccounts.find(a => a.email === email && a.password === password);
+    const seedMatch = seeds.find(a => a.email === email && a.password === pass);
 
     if (seedMatch) {
-      sucAlert.style.display = 'block';
-      localStorage.setItem('tc_user', JSON.stringify({ email, role: seedMatch.role, firstName: seedMatch.firstName, lastName: seedMatch.lastName }));
+      localStorage.setItem('tc_user', JSON.stringify({email, role:seedMatch.role, firstName:seedMatch.firstName, lastName:seedMatch.lastName}));
+      document.getElementById('sucAlert').style.display = 'block';
       setTimeout(() => {
-        window.location.href = seedMatch.role === 'tutor' ? 'tutor-dashboard.html' : 'tutors.html';
-      }, 1200);
+        location.href = seedMatch.role === 'tutor' ? 'tutor-dashboard.html' : 'tutors.html';
+      }, 1100);
     } else if (regMatch) {
-      // Registered tutor trying to log in (password check simplified for demo)
-      sucAlert.style.display = 'block';
-      localStorage.setItem('tc_user', JSON.stringify({ email, role:'tutor', firstName: regMatch.name.split(' ')[0], lastName: regMatch.name.split(' ')[1]||'', tutorId: regMatch.id }));
-      setTimeout(() => { window.location.href = 'tutor-dashboard.html'; }, 1200);
+      // Registered tutor login
+      localStorage.setItem('tc_user', JSON.stringify({
+        email, role:'tutor',
+        firstName: regMatch.name.split(' ')[0],
+        lastName:  regMatch.name.split(' ').slice(1).join(' '),
+        tutorId:   regMatch.id
+      }));
+      document.getElementById('sucAlert').style.display = 'block';
+      setTimeout(() => { location.href = 'tutor-dashboard.html'; }, 1100);
     } else {
-      errAlert.style.display = 'block';
+      document.getElementById('errAlert').style.display = 'block';
     }
   }
 </script>
