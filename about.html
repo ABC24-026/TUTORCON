@@ -11,124 +11,121 @@
     html{scroll-behavior:smooth;}
     body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);overflow-x:hidden;}
     nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,22,40,0.97);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;border-bottom:2px solid var(--gold);}
-    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;z-index:1001;}
     .logo-icon{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--navy);}
     .nav-logo span{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700;}
     .con{color:var(--gold);}
-    .nav-links{display:flex;gap:28px;align-items:center;}
-    .nav-links a{text-decoration:none;color:rgba(255,255,255,0.8);font-size:0.9rem;font-weight:500;transition:color 0.2s;}
+    .nav-links{display:flex;gap:26px;align-items:center;}
+    .nav-links a{text-decoration:none;color:rgba(255,255,255,0.8);font-size:0.88rem;font-weight:500;transition:color 0.2s;}
     .nav-links a:hover,.nav-links a.active{color:var(--gold);}
-    .nav-cta{display:flex;gap:12px;}
-    .btn-outline{padding:8px 20px;border:1.5px solid var(--gold);color:var(--gold);border-radius:6px;text-decoration:none;font-weight:600;font-size:0.85rem;transition:all 0.2s;}
+    .nav-cta{display:flex;gap:10px;}
+    .btn-outline{padding:7px 18px;border:1.5px solid var(--gold);color:var(--gold);border-radius:6px;text-decoration:none;font-weight:600;font-size:0.83rem;transition:all 0.2s;}
     .btn-outline:hover{background:var(--gold);color:var(--navy);}
-    .btn-solid{padding:8px 20px;background:var(--gold);color:var(--navy);border-radius:6px;text-decoration:none;font-weight:700;font-size:0.85rem;}
+    .btn-solid{padding:7px 18px;background:var(--gold);color:var(--navy);border-radius:6px;text-decoration:none;font-weight:700;font-size:0.83rem;}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:4px;}
+    .hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all 0.3s;}
+    .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+    .hamburger.open span:nth-child(2){opacity:0;}
+    .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+    .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(10,22,40,0.98);padding:20px 5%;flex-direction:column;gap:0;z-index:999;border-bottom:2px solid var(--gold);}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{color:rgba(255,255,255,0.85);text-decoration:none;font-size:0.95rem;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.07);}
+    .mobile-menu .m-cta{display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.1);border-bottom:none;}
+    .mobile-menu .m-cta a{padding:11px 20px;border-radius:8px;text-align:center;flex:1;font-weight:700;font-size:0.88rem;}
+    .mb-s{background:var(--gold);color:var(--navy);}
+    .mb-o{border:1.5px solid var(--gold);color:var(--gold);}
 
-    /* HERO */
-    .about-hero{margin-top:68px;background:var(--navy);padding:80px 5% 70px;position:relative;overflow:hidden;}
-    .about-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(212,160,23,0.1) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(26,140,91,0.07) 0%,transparent 50%);}
-    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:60px 60px;}
-    .about-hero-inner{position:relative;z-index:2;max-width:700px;}
-    .section-tag{display:inline-block;background:rgba(212,160,23,0.15);color:var(--gold);padding:5px 16px;border-radius:50px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:18px;}
-    .about-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4rem);color:var(--white);line-height:1.15;margin-bottom:20px;}
-    .about-hero h1 em{color:var(--gold);font-style:normal;}
-    .about-hero p{color:rgba(255,255,255,0.7);font-size:1.1rem;line-height:1.75;max-width:580px;}
+    .hero{margin-top:68px;background:var(--navy);padding:72px 5% 64px;position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(212,160,23,0.1) 0%,transparent 60%);}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:60px 60px;}
+    .hero-inner{position:relative;z-index:2;max-width:680px;}
+    .tag{display:inline-block;background:rgba(212,160,23,0.15);color:var(--gold);padding:4px 13px;border-radius:50px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px;}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.6rem);color:var(--white);line-height:1.15;margin-bottom:18px;}
+    .hero h1 em{color:var(--gold);font-style:normal;}
+    .hero p{color:rgba(255,255,255,0.65);font-size:1rem;line-height:1.75;max-width:560px;}
 
-    /* MISSION */
-    .mission{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 5%;background:var(--white);}
-    .mission-text .tag{display:inline-block;background:rgba(212,160,23,0.12);color:var(--gold);padding:4px 14px;border-radius:50px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px;}
-    .mission-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--navy);margin-bottom:20px;line-height:1.2;}
-    .mission-text p{color:var(--slate);font-size:0.97rem;line-height:1.8;margin-bottom:16px;}
-    .mission-visual{background:var(--navy);border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px;}
-    .mission-stat{display:flex;align-items:center;gap:16px;}
-    .m-icon{width:52px;height:52px;border-radius:12px;background:rgba(212,160,23,0.15);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
-    .m-num{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--gold);font-weight:700;}
-    .m-lbl{color:rgba(255,255,255,0.6);font-size:0.82rem;margin-top:2px;}
+    section{padding:68px 5%;}
+    .sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.5vw,2.6rem);color:var(--navy);margin-bottom:10px;line-height:1.2;}
+    .sec-sub{color:var(--slate);font-size:0.97rem;line-height:1.7;max-width:520px;}
 
-    /* PROBLEM */
-    .problem{padding:80px 5%;background:var(--cream);}
-    .problem h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--navy);margin-bottom:12px;text-align:center;}
-    .problem > p{color:var(--slate);text-align:center;font-size:1rem;margin-bottom:50px;max-width:540px;margin-left:auto;margin-right:auto;}
-    .problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
-    .problem-card{background:var(--white);border-radius:16px;padding:32px;border:1px solid rgba(0,0,0,0.07);box-shadow:0 2px 12px rgba(0,0,0,0.05);}
-    .prob-icon{font-size:2rem;margin-bottom:14px;}
-    .problem-card h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:8px;}
-    .problem-card p{color:var(--slate);font-size:0.88rem;line-height:1.65;}
+    .mission{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
+    .mission-text .tag{background:rgba(212,160,23,0.12);}
+    .mission-text p{color:var(--slate);font-size:0.95rem;line-height:1.8;margin-bottom:14px;}
+    .mission-vis{background:var(--navy);border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:18px;}
+    .ms{display:flex;align-items:center;gap:14px;}
+    .ms-icon{width:48px;height:48px;border-radius:12px;background:rgba(212,160,23,0.15);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+    .ms-num{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--gold);font-weight:700;}
+    .ms-lbl{color:rgba(255,255,255,0.55);font-size:0.78rem;margin-top:1px;}
 
-    /* SOLUTION */
-    .solution{padding:80px 5%;background:var(--navy);}
-    .solution .section-tag{background:rgba(212,160,23,0.2);}
-    .solution h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--white);margin-bottom:12px;}
-    .solution > p{color:rgba(255,255,255,0.6);font-size:1rem;margin-bottom:50px;max-width:540px;}
-    .solution-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
-    .sol-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px;transition:all 0.2s;}
+    .prob-sec{background:var(--white);}
+    .prob-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;margin-top:44px;}
+    .prob-card{background:var(--cream);border-radius:16px;padding:28px;border:1px solid rgba(0,0,0,0.07);}
+    .prob-icon{font-size:1.8rem;margin-bottom:12px;}
+    .prob-card h3{font-size:0.97rem;font-weight:700;color:var(--navy);margin-bottom:7px;}
+    .prob-card p{color:var(--slate);font-size:0.85rem;line-height:1.65;}
+
+    .sol-sec{background:var(--navy);}
+    .sol-sec .sec-title{color:var(--white);}
+    .sol-sec .sec-sub{color:rgba(255,255,255,0.55);}
+    .sol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;margin-top:40px;}
+    .sol-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:26px;transition:all 0.2s;}
     .sol-card:hover{background:rgba(255,255,255,0.1);transform:translateY(-3px);}
-    .sol-icon{font-size:2rem;margin-bottom:14px;}
-    .sol-card h3{color:var(--white);font-size:1rem;font-weight:700;margin-bottom:8px;}
-    .sol-card p{color:rgba(255,255,255,0.6);font-size:0.88rem;line-height:1.65;}
+    .sol-icon{font-size:1.7rem;margin-bottom:12px;}
+    .sol-card h3{color:var(--white);font-size:0.97rem;font-weight:700;margin-bottom:7px;}
+    .sol-card p{color:rgba(255,255,255,0.58);font-size:0.85rem;line-height:1.65;}
 
-    /* TEAM */
-    .team{padding:80px 5%;background:var(--white);}
-    .team h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--navy);margin-bottom:8px;}
-    .team > p{color:var(--slate);font-size:1rem;margin-bottom:50px;}
-    .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;}
-    .team-card{background:var(--cream);border-radius:16px;padding:28px;text-align:center;border:1px solid rgba(0,0,0,0.07);transition:transform 0.2s;}
+    .team-sec{background:var(--cream);}
+    .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;margin-top:40px;}
+    .team-card{background:var(--white);border-radius:16px;padding:26px;text-align:center;border:1px solid rgba(0,0,0,0.07);transition:transform 0.2s;}
     .team-card:hover{transform:translateY(-4px);}
-    .team-avatar{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin:0 auto 16px;}
-    .team-card h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:4px;}
-    .team-card .role{font-size:0.82rem;color:var(--gold);font-weight:600;margin-bottom:6px;}
-    .team-card p{font-size:0.82rem;color:var(--slate);line-height:1.55;}
+    .team-av{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin:0 auto 14px;}
+    .team-card h3{font-size:0.97rem;font-weight:700;color:var(--navy);margin-bottom:3px;}
+    .team-card .role{font-size:0.79rem;color:var(--gold);font-weight:600;margin-bottom:5px;}
+    .team-card p{font-size:0.8rem;color:var(--slate);line-height:1.55;}
 
-    /* INSTITUTIONS */
-    .institutions{padding:60px 5%;background:var(--cream);text-align:center;}
-    .institutions h2{font-family:'Playfair Display',serif;font-size:2rem;color:var(--navy);margin-bottom:8px;}
-    .institutions > p{color:var(--slate);font-size:0.95rem;margin-bottom:36px;}
-    .inst-pills{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;}
-    .inst-pill{background:var(--white);border:1.5px solid rgba(0,0,0,0.08);border-radius:50px;padding:12px 24px;font-size:0.9rem;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
-    .inst-pill .dot{width:10px;height:10px;border-radius:50%;background:var(--green-light);}
+    .inst-sec{background:var(--white);text-align:center;}
+    .inst-pills{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:30px;}
+    .inst-pill{background:var(--cream);border:1.5px solid rgba(0,0,0,0.08);border-radius:50px;padding:11px 22px;font-size:0.87rem;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:7px;}
+    .dot{width:9px;height:9px;border-radius:50%;background:var(--green-light);}
 
-    /* PRICING */
-    .pricing{padding:80px 5%;background:var(--navy);}
-    .pricing h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--white);margin-bottom:10px;}
-    .pricing > p{color:rgba(255,255,255,0.6);font-size:1rem;margin-bottom:50px;max-width:480px;}
-    .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:700px;}
-    .plan-card{background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:20px;padding:36px;}
-    .plan-card.featured{background:rgba(212,160,23,0.12);border-color:var(--gold);}
-    .plan-tag{display:inline-block;background:var(--gold);color:var(--navy);padding:3px 12px;border-radius:50px;font-size:0.72rem;font-weight:700;text-transform:uppercase;margin-bottom:16px;}
-    .plan-name{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--white);margin-bottom:8px;}
-    .plan-price{font-family:'Playfair Display',serif;font-size:2.6rem;color:var(--gold);font-weight:700;margin-bottom:4px;}
-    .plan-period{color:rgba(255,255,255,0.5);font-size:0.82rem;margin-bottom:24px;}
-    .plan-features{display:flex;flex-direction:column;gap:10px;}
-    .feat{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.8);font-size:0.88rem;}
-    .feat .check{color:var(--green-light);font-size:1rem;}
+    .pricing-sec{background:var(--navy);}
+    .pricing-sec .sec-title{color:var(--white);}
+    .pricing-sec .sec-sub{color:rgba(255,255,255,0.55);}
+    .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:680px;margin-top:40px;}
+    .plan-card{background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px;}
+    .plan-card.feat{background:rgba(212,160,23,0.1);border-color:var(--gold);}
+    .plan-tag{display:inline-block;background:var(--gold);color:var(--navy);padding:2px 11px;border-radius:50px;font-size:0.68rem;font-weight:700;text-transform:uppercase;margin-bottom:13px;}
+    .plan-name{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--white);margin-bottom:7px;}
+    .plan-price{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--gold);font-weight:700;margin-bottom:3px;}
+    .plan-period{color:rgba(255,255,255,0.45);font-size:0.8rem;margin-bottom:22px;}
+    .feats{display:flex;flex-direction:column;gap:9px;}
+    .feat{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.78);font-size:0.85rem;}
+    .feat .ck{color:var(--green-light);}
 
-    /* CTA */
-    .cta{background:linear-gradient(135deg,#0d1e3a 0%,var(--navy) 100%);padding:100px 5%;text-align:center;position:relative;overflow:hidden;}
-    .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(212,160,23,0.1) 0%,transparent 70%);}
-    .cta h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);color:var(--white);margin-bottom:14px;position:relative;}
-    .cta p{color:rgba(255,255,255,0.7);font-size:1.05rem;margin-bottom:40px;position:relative;}
-    .cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;}
-    .btn-primary{padding:14px 32px;background:var(--gold);color:var(--navy);border-radius:8px;text-decoration:none;font-weight:700;font-size:1rem;transition:all 0.2s;}
-    .btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
-    .btn-sec{padding:14px 32px;border:2px solid rgba(255,255,255,0.35);color:var(--white);border-radius:8px;text-decoration:none;font-weight:600;font-size:1rem;transition:all 0.2s;}
-    .btn-sec:hover{border-color:var(--white);background:rgba(255,255,255,0.08);}
+    .cta{background:linear-gradient(135deg,var(--navy) 0%,#0d1e3a 100%);padding:88px 5%;text-align:center;position:relative;overflow:hidden;}
+    .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(212,160,23,0.08) 0%,transparent 70%);}
+    .cta h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.5vw,2.8rem);color:var(--white);margin-bottom:12px;position:relative;}
+    .cta p{color:rgba(255,255,255,0.6);font-size:0.97rem;margin-bottom:32px;position:relative;}
+    .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;}
+    .btn-primary{padding:13px 28px;background:var(--gold);color:var(--navy);border-radius:8px;text-decoration:none;font-weight:700;font-size:0.95rem;transition:all 0.2s;}
+    .btn-primary:hover{background:var(--gold-light);}
+    .btn-sec{padding:13px 26px;border:1.5px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.85);border-radius:8px;text-decoration:none;font-weight:600;font-size:0.95rem;transition:all 0.2s;}
+    .btn-sec:hover{background:rgba(255,255,255,0.07);}
 
-    footer{background:#060f1e;padding:50px 5% 24px;border-top:1px solid rgba(255,255,255,0.05);}
-    .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid rgba(255,255,255,0.07);flex-wrap:wrap;gap:10px;}
-    .footer-bottom p{color:rgba(255,255,255,0.35);font-size:0.82rem;}
-    .footer-links{display:flex;gap:24px;}
-    .footer-links a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;transition:color 0.2s;}
-    .footer-links a:hover{color:var(--white);}
+    footer{background:#060f1e;padding:40px 5% 22px;border-top:1px solid rgba(255,255,255,0.05);}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+    .footer-bottom p{color:rgba(255,255,255,0.28);font-size:0.78rem;}
+    .footer-links{display:flex;gap:20px;}
+    .footer-links a{color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.83rem;transition:color 0.2s;}
+    .footer-links a:hover{color:#fff;}
 
-    @media(max-width:900px){.mission{grid-template-columns:1fr;}.pricing-grid{grid-template-columns:1fr;}}
-    @media(max-width:600px){.nav-links{display:none;}}
+    @media(max-width:860px){.mission{grid-template-columns:1fr;}.pricing-grid{grid-template-columns:1fr;}.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}}
+    @media(max-width:500px){.inst-pills{gap:8px;}}
   </style>
 </head>
 <body>
 <nav>
-  <a href="index.html" class="nav-logo">
-    <div class="logo-icon">T</div>
-    <span>Tutor<span class="con">Con</span></span>
-  </a>
+  <a href="index.html" class="nav-logo"><div class="logo-icon">T</div><span>Tutor<span class="con">Con</span></span></a>
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="tutors.html">Find Tutors</a>
@@ -136,217 +133,149 @@
   </div>
   <div class="nav-cta">
     <a href="login.html" class="btn-outline">Log In</a>
-    <a href="register.html" class="btn-solid">Get Started</a>
+    <a href="register.html" class="btn-solid">Join Free</a>
   </div>
+  <div class="hamburger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">🏠 Home</a>
+  <a href="tutors.html">🔍 Find Tutors</a>
+  <a href="about.html">ℹ️ About Us</a>
+  <div class="m-cta">
+    <a href="login.html" class="mb-o">Log In</a>
+    <a href="register.html" class="mb-s">Join Free</a>
+  </div>
+</div>
 
-<!-- HERO -->
-<div class="about-hero">
+<div class="hero">
   <div class="hero-grid"></div>
-  <div class="about-hero-inner">
-    <div class="section-tag">About TutorCon</div>
-    <h1>We're Solving <em>Academic Access</em> in Gaborone</h1>
-    <p>TutorCon was born out of a simple frustration: students couldn't find the academic help they needed, and skilled tutors couldn't reach students who needed them. We built the bridge.</p>
+  <div class="hero-inner">
+    <div class="tag">About TutorCon</div>
+    <h1>We make it <em>easier to get help</em> when you need it most.</h1>
+    <p>TutorCon started because finding a good tutor was harder than it should be. We built the platform we wished existed — one that connects students and tutors across any institution, quickly and reliably.</p>
   </div>
 </div>
 
-<!-- MISSION -->
-<div class="mission">
-  <div class="mission-text">
-    <div class="tag">Our Mission</div>
-    <h2>Every Student Deserves Access to Quality Tutoring</h2>
-    <p>In Gaborone's institutions, some courses are pursued by very few students, making it nearly impossible to find a tutor within your own campus. Meanwhile, talented tutors advertise on WhatsApp with no reach beyond their immediate circle.</p>
-    <p>TutorCon is a digital platform purpose-built for Gaborone's academic community — connecting students and tutors across BAC, BUAN, UB, Botho, ABM, BCET, Limkokwing and secondary schools through one trusted platform.</p>
-    <p>Our <strong>mixed-tutoring model</strong> means a BUAN student can access a UB tutor for the same BSc module — removing institutional boundaries from academic success.</p>
-  </div>
-  <div class="mission-visual">
-    <div style="font-family:'Playfair Display',serif;color:var(--white);font-size:1.2rem;margin-bottom:8px;">TutorCon by the Numbers</div>
-    <div class="mission-stat">
-      <div class="m-icon">🎓</div>
-      <div><div class="m-num">120+</div><div class="m-lbl">Verified tutors on the platform</div></div>
+<section>
+  <div class="mission">
+    <div class="mission-text">
+      <div class="tag">Our Mission</div>
+      <h2 class="sec-title" style="margin-top:8px;">No student should fail for lack of the right help.</h2>
+      <p>The reality for many students in Gaborone and surrounding areas is that finding tutoring for their specific course — at their institution — can be nearly impossible. Some subjects have only a handful of students. Some campuses offer no centralised support. And talented tutors rely on WhatsApp posts that reach almost nobody.</p>
+      <p>TutorCon changes that. We built a single platform where students can browse, compare, and book verified tutors from any institution — and where tutors can build a real profile and get steady bookings without chasing anyone.</p>
+      <p>It works across UB, BUAN, Botho, BAC, ABM, BCET, Limkokwing, and secondary schools in the region.</p>
     </div>
-    <div class="mission-stat">
-      <div class="m-icon">👩‍🎓</div>
-      <div><div class="m-num">500+</div><div class="m-lbl">Students helped since launch</div></div>
-    </div>
-    <div class="mission-stat">
-      <div class="m-icon">🏛️</div>
-      <div><div class="m-num">8</div><div class="m-lbl">Partner institutions in Gaborone</div></div>
-    </div>
-    <div class="mission-stat">
-      <div class="m-icon">⭐</div>
-      <div><div class="m-num">4.8 / 5</div><div class="m-lbl">Average tutor rating across platform</div></div>
+    <div class="mission-vis">
+      <div style="font-family:'Playfair Display',serif;color:var(--white);font-size:1.1rem;margin-bottom:6px;">TutorCon at a glance</div>
+      <div class="ms"><div class="ms-icon">🎓</div><div><div class="ms-num">120+</div><div class="ms-lbl">Verified tutors on the platform</div></div></div>
+      <div class="ms"><div class="ms-icon">👩‍🎓</div><div><div class="ms-num">500+</div><div class="ms-lbl">Students helped so far</div></div></div>
+      <div class="ms"><div class="ms-icon">🏛️</div><div><div class="ms-num">8+</div><div class="ms-lbl">Institutions represented</div></div></div>
+      <div class="ms"><div class="ms-icon">⭐</div><div><div class="ms-num">4.8 / 5</div><div class="ms-lbl">Average tutor rating</div></div></div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- THE PROBLEM -->
-<div class="problem">
-  <div class="section-tag" style="display:block;text-align:center;width:fit-content;margin:0 auto 16px;">The Problem We Solve</div>
-  <h2>Why Students Struggle to Find Help</h2>
-  <p>These are the real academic access challenges TutorCon was built to address.</p>
-  <div class="problem-grid">
-    <div class="problem-card">
-      <div class="prob-icon">🔎</div>
-      <h3>Rare Course Tutors</h3>
-      <p>Some courses are pursued by very few students, meaning qualified tutors for those subjects are nearly impossible to find on campus.</p>
-    </div>
-    <div class="problem-card">
-      <div class="prob-icon">🏫</div>
-      <h3>No Centralised Services</h3>
-      <p>Most Gaborone institutions don't offer centralised tutoring services, leaving students to fend for themselves with no support structure.</p>
-    </div>
-    <div class="problem-card">
-      <div class="prob-icon">📱</div>
-      <h3>WhatsApp Word-of-Mouth</h3>
-      <p>Tutors rely on WhatsApp and word-of-mouth advertising that doesn't scale — great tutors go undiscovered, and students miss out.</p>
-    </div>
-    <div class="problem-card">
-      <div class="prob-icon">🏝️</div>
-      <h3>Institution Silos</h3>
-      <p>Students are locked into tutors from their own institution, even when expert tutors for their specific modules exist at another university nearby.</p>
-    </div>
+<section class="prob-sec">
+  <div class="tag">The Problem We Solve</div>
+  <h2 class="sec-title" style="margin-top:8px;">Why students struggle to find the right tutor</h2>
+  <p class="sec-sub">These are the real challenges we set out to fix.</p>
+  <div class="prob-grid">
+    <div class="prob-card"><div class="prob-icon">🔎</div><h3>Too few tutors per subject</h3><p>Niche courses have almost no tutors available at a single campus. Students hit a wall before they even start looking.</p></div>
+    <div class="prob-card"><div class="prob-icon">🏫</div><h3>No centralised support</h3><p>Most institutions don't offer organised tutoring. Students are left to figure it out themselves with no guidance.</p></div>
+    <div class="prob-card"><div class="prob-icon">📱</div><h3>WhatsApp isn't enough</h3><p>Tutors post on group chats and hope someone sees it. Great tutors go undiscovered. Students miss the help they need.</p></div>
+    <div class="prob-card"><div class="prob-icon">🏝️</div><h3>Stuck within your campus</h3><p>Even if a perfect tutor exists at a nearby institution, there's no way to find or access them without TutorCon.</p></div>
   </div>
-</div>
+</section>
 
-<!-- THE SOLUTION -->
-<div class="solution">
-  <div class="section-tag">Our Solution</div>
-  <h2>What TutorCon Offers</h2>
-  <p>A full digital ecosystem for academic support in Gaborone — built for both students and tutors.</p>
-  <div class="solution-grid">
-    <div class="sol-card">
-      <div class="sol-icon">👤</div>
-      <h3>Verified Tutor Profiles</h3>
-      <p>Every tutor is verified by institution. Students see real pass rates, subject lists, session types, and honest student reviews.</p>
-    </div>
-    <div class="sol-card">
-      <div class="sol-icon">🔀</div>
-      <h3>Cross-Institution Matching</h3>
-      <p>Our unique mixed-tutoring model lets students access tutors from any Gaborone institution — not just their own campus.</p>
-    </div>
-    <div class="sol-card">
-      <div class="sol-icon">📅</div>
-      <h3>Seamless Booking</h3>
-      <p>Browse, filter, and book tutors for part-time or full-time sessions directly through the platform — no more chasing numbers.</p>
-    </div>
-    <div class="sol-card">
-      <div class="sol-icon">💬</div>
-      <h3>In-Platform Messaging</h3>
-      <p>All communication happens on TutorCon. No lost WhatsApp threads, no missed appointments.</p>
-    </div>
-    <div class="sol-card">
-      <div class="sol-icon">📚</div>
-      <h3>Study Material Marketplace</h3>
-      <p>Tutors can optionally sell study notes and materials, creating an additional income stream while helping students study independently.</p>
-    </div>
-    <div class="sol-card">
-      <div class="sol-icon">⭐</div>
-      <h3>Ratings & Reviews</h3>
-      <p>Students choose tutors based on real ratings, pass rates, and verified reviews — building a culture of academic excellence.</p>
-    </div>
+<section class="sol-sec">
+  <div class="tag" style="background:rgba(212,160,23,0.2);">What TutorCon Offers</div>
+  <h2 class="sec-title" style="margin-top:8px;">Everything a student or tutor actually needs</h2>
+  <p class="sec-sub">One platform. All the tools. No friction.</p>
+  <div class="sol-grid">
+    <div class="sol-card"><div class="sol-icon">👤</div><h3>Verified tutor profiles</h3><p>Every tutor is verified by institution. Students see real pass rates, subjects, availability, and honest student reviews.</p></div>
+    <div class="sol-card"><div class="sol-icon">🔀</div><h3>Cross-institution matching</h3><p>A BUAN student can access a UB tutor for the same module. No more being limited to your own campus.</p></div>
+    <div class="sol-card"><div class="sol-icon">📅</div><h3>Real booking flow</h3><p>Pick a date, time, and session type. Get a confirmation page with a reference number. No more "let me check and get back to you."</p></div>
+    <div class="sol-card"><div class="sol-icon">💬</div><h3>In-platform messaging</h3><p>Message tutors directly on TutorCon. No lost WhatsApp threads, no awkward cold texts to strangers.</p></div>
+    <div class="sol-card"><div class="sol-icon">📚</div><h3>Study material marketplace</h3><p>Tutors can sell notes and study guides on their profiles — extra help outside session hours.</p></div>
+    <div class="sol-card"><div class="sol-icon">⭐</div><h3>Real reviews and ratings</h3><p>Students choose tutors based on verified reviews and star ratings. No more guessing if a tutor is actually good.</p></div>
   </div>
-</div>
+</section>
 
-<!-- TEAM -->
-<div class="team">
-  <div class="section-tag" style="display:inline-block;">The Team</div>
-  <h2 style="margin-top:8px;">Built by Gaborone Students, For Gaborone Students</h2>
-  <p>TutorCon was founded by a group of students who experienced the tutoring access gap firsthand.</p>
+<section class="team-sec">
+  <div class="tag">The Team</div>
+  <h2 class="sec-title" style="margin-top:8px;">Students who got tired of the problem — and fixed it.</h2>
+  <p class="sec-sub">TutorCon was built by a small team who experienced the tutoring gap firsthand and decided to do something about it.</p>
   <div class="team-grid">
-    <div class="team-card">
-      <div class="team-avatar" style="background:#D4A017;color:#0A1628;">TK</div>
-      <h3>Tumelo Kgari</h3>
-      <div class="role">Co-Founder & CEO</div>
-      <p>BSc Computer Science, UB. Passionate about EdTech and making quality education accessible.</p>
-    </div>
-    <div class="team-card">
-      <div class="team-avatar" style="background:#1A8C5B;color:#fff;">MM</div>
-      <h3>Mpho Mokoena</h3>
-      <div class="role">Co-Founder & CTO</div>
-      <p>Software Engineering graduate from BUAN. Leads all platform development and technical architecture.</p>
-    </div>
-    <div class="team-card">
-      <div class="team-avatar" style="background:#4A6FA5;color:#fff;">LS</div>
-      <h3>Lerato Selebi</h3>
-      <div class="role">Head of Operations</div>
-      <p>Business Administration, Botho University. Manages tutor onboarding, partnerships, and platform quality.</p>
-    </div>
-    <div class="team-card">
-      <div class="team-avatar" style="background:#8E44AD;color:#fff;">OD</div>
-      <h3>Oratile Dube</h3>
-      <div class="role">Head of Marketing</div>
-      <p>Marketing student at ABM. Drives student and tutor growth across all Gaborone institutions.</p>
-    </div>
+    <div class="team-card"><div class="team-av" style="background:#D4A017;color:#0A1628;">TK</div><h3>Tumelo Kgari</h3><div class="role">Co-Founder & CEO</div><p>BSc Computer Science, UB. Passionate about using technology to make education more accessible.</p></div>
+    <div class="team-card"><div class="team-av" style="background:#1A8C5B;color:#fff;">MM</div><h3>Mpho Mokoena</h3><div class="role">Co-Founder & CTO</div><p>Software Engineering graduate from BUAN. Leads all platform development and product design.</p></div>
+    <div class="team-card"><div class="team-av" style="background:#4A6FA5;color:#fff;">LS</div><h3>Lerato Selebi</h3><div class="role">Head of Operations</div><p>Business Administration, Botho. Manages tutor onboarding, quality, and student experience.</p></div>
+    <div class="team-card"><div class="team-av" style="background:#8E44AD;color:#fff;">OD</div><h3>Oratile Dube</h3><div class="role">Head of Marketing</div><p>Marketing student at ABM. Drives awareness and growth across all institutions and channels.</p></div>
   </div>
-</div>
+</section>
 
-<!-- INSTITUTIONS -->
-<div class="institutions">
-  <div class="section-tag" style="display:inline-block;margin-bottom:14px;">Partner Institutions</div>
-  <h2>Serving All Major Gaborone Institutions</h2>
-  <p>Tutors and students from all these institutions are on TutorCon.</p>
+<section class="inst-sec">
+  <div class="tag">Partner Institutions</div>
+  <h2 class="sec-title" style="margin-top:8px;">Serving students and tutors across the region</h2>
+  <p class="sec-sub" style="margin:0 auto;">Whether you study in Gaborone or the surrounding area, TutorCon is built for you.</p>
   <div class="inst-pills">
-    <span class="inst-pill"><span class="dot"></span>University of Botswana (UB)</span>
+    <span class="inst-pill"><span class="dot"></span>University of Botswana</span>
     <span class="inst-pill"><span class="dot"></span>BUAN</span>
     <span class="inst-pill"><span class="dot"></span>Botho University</span>
     <span class="inst-pill"><span class="dot"></span>BAC</span>
     <span class="inst-pill"><span class="dot"></span>ABM</span>
     <span class="inst-pill"><span class="dot"></span>BCET</span>
-    <span class="inst-pill"><span class="dot"></span>Limkokwing University</span>
+    <span class="inst-pill"><span class="dot"></span>Limkokwing</span>
     <span class="inst-pill"><span class="dot"></span>Secondary Schools</span>
   </div>
-</div>
+</section>
 
-<!-- PRICING -->
-<div class="pricing">
-  <div class="section-tag">Tutor Plans</div>
-  <h2>Simple, Transparent Pricing</h2>
-  <p>For tutors — choose the plan that works for your goals. Students always browse for free.</p>
+<section class="pricing-sec">
+  <div class="tag" style="background:rgba(212,160,23,0.2);">Tutor Plans</div>
+  <h2 class="sec-title" style="margin-top:8px;">Simple pricing. No surprises.</h2>
+  <p class="sec-sub">Students always browse and book for free. Tutors choose a listing plan.</p>
   <div class="pricing-grid">
     <div class="plan-card">
       <div class="plan-name">Basic Listing</div>
       <div class="plan-price">P20</div>
       <div class="plan-period">per month</div>
-      <div class="plan-features">
-        <div class="feat"><span class="check">✓</span> Profile on TutorCon</div>
-        <div class="feat"><span class="check">✓</span> Standard search placement</div>
-        <div class="feat"><span class="check">✓</span> Student messaging</div>
-        <div class="feat"><span class="check">✓</span> Booking management</div>
-        <div class="feat"><span class="check">✓</span> Reviews & ratings</div>
+      <div class="feats">
+        <div class="feat"><span class="ck">✓</span> Profile on TutorCon</div>
+        <div class="feat"><span class="ck">✓</span> Standard search placement</div>
+        <div class="feat"><span class="ck">✓</span> Student messaging</div>
+        <div class="feat"><span class="ck">✓</span> Booking management</div>
+        <div class="feat"><span class="ck">✓</span> Reviews and ratings</div>
       </div>
     </div>
-    <div class="plan-card featured">
-      <div class="plan-tag">⭐ Recommended</div>
+    <div class="plan-card feat">
+      <div class="plan-tag">⭐ Most Popular</div>
       <div class="plan-name">Premium Listing</div>
       <div class="plan-price">P45</div>
       <div class="plan-period">per month</div>
-      <div class="plan-features">
-        <div class="feat"><span class="check">✓</span> Everything in Basic</div>
-        <div class="feat"><span class="check">✓</span> <strong style="color:#fff;">Top search placement</strong></div>
-        <div class="feat"><span class="check">✓</span> Boosted startup ratings</div>
-        <div class="feat"><span class="check">✓</span> Premium badge on profile</div>
-        <div class="feat"><span class="check">✓</span> Study material sales</div>
-        <div class="feat"><span class="check">✓</span> Priority support</div>
+      <div class="feats">
+        <div class="feat"><span class="ck">✓</span> Everything in Basic</div>
+        <div class="feat"><span class="ck">✓</span> Top search placement</div>
+        <div class="feat"><span class="ck">✓</span> Boosted rating display</div>
+        <div class="feat"><span class="ck">✓</span> Premium badge on profile</div>
+        <div class="feat"><span class="ck">✓</span> Study material sales</div>
+        <div class="feat"><span class="ck">✓</span> Priority support</div>
       </div>
     </div>
   </div>
-  <p style="color:rgba(255,255,255,0.4);font-size:0.82rem;margin-top:20px;">* Students always browse and book for free.</p>
-</div>
+  <p style="color:rgba(255,255,255,0.35);font-size:0.79rem;margin-top:16px;">* Students browse and book for free, always.</p>
+</section>
 
-<!-- CTA -->
-<div class="cta">
-  <h2>Ready to Join TutorCon?</h2>
-  <p>Whether you need academic help or want to share your knowledge, TutorCon is your platform.</p>
+<section class="cta">
+  <h2>Ready to stop struggling and start passing?</h2>
+  <p>Join TutorCon free. Find the right tutor in minutes.</p>
   <div class="cta-btns">
-    <a href="register.html" class="btn-primary">Find a Tutor — Free</a>
-    <a href="register.html?type=tutor" class="btn-sec">Register as Tutor</a>
+    <a href="register.html" class="btn-primary">Get Started — Free</a>
+    <a href="register.html?type=tutor" class="btn-sec">Register as a Tutor</a>
   </div>
-</div>
+</section>
 
 <footer>
   <div class="footer-bottom">
-    <p>© 2024 TutorCon. All rights reserved. Gaborone, Botswana 🇧🇼</p>
+    <p>© 2024 TutorCon. All rights reserved. Made in Botswana 🇧🇼</p>
     <div class="footer-links">
       <a href="index.html">Home</a>
       <a href="tutors.html">Tutors</a>
@@ -356,5 +285,9 @@
     </div>
   </div>
 </footer>
+<script>
+function toggleMenu(){document.getElementById('burger').classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');}
+document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('.mobile-menu')){document.getElementById('burger').classList.remove('open');document.getElementById('mobileMenu').classList.remove('open');}});
+</script>
 </body>
 </html>
