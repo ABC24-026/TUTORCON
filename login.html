@@ -1,180 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Log In – TutorCon</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    :root { --navy:#0A1628;--navy-mid:#132040;--gold:#D4A017;--gold-light:#F0C040;--cream:#FAF7F0;--white:#FFFFFF;--slate:#6B7A99;--green:#1A8C5B;--red:#C0392B; }
+    :root{--navy:#0A1628;--gold:#D4A017;--gold-light:#F0C040;--cream:#FAF7F0;--white:#FFFFFF;--slate:#6B7A99;--green:#1A8C5B;--red:#C0392B;}
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:'DM Sans',sans-serif;background:var(--navy);min-height:100vh;display:flex;}
-
-    /* LEFT PANEL */
-    .left{flex:1;background:var(--navy-mid);display:flex;flex-direction:column;justify-content:center;padding:60px;position:relative;overflow:hidden;}
-    .left::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(212,160,23,0.1) 0%,transparent 60%);}
-    .left::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:50px 50px;}
-    .left-inner{position:relative;z-index:2;}
-    .panel-logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:56px;}
-    .logo-icon{width:40px;height:40px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--navy);}
-    .panel-logo span{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--white);font-weight:700;}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);min-height:100vh;display:flex;flex-direction:column;}
+    nav{background:rgba(10,22,40,0.97);height:68px;display:flex;align-items:center;padding:0 5%;justify-content:space-between;border-bottom:2px solid var(--gold);}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-icon{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--navy);}
+    .nav-logo span{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700;}
     .con{color:var(--gold);}
-    .left-inner h1{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--white);line-height:1.2;margin-bottom:14px;}
-    .left-inner h1 em{color:var(--gold);font-style:normal;}
-    .left-inner > p{color:rgba(255,255,255,0.55);font-size:0.97rem;line-height:1.75;max-width:340px;margin-bottom:44px;}
-    .testi{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:22px;}
-    .testi p{color:rgba(255,255,255,0.8);font-size:0.9rem;line-height:1.6;margin-bottom:14px;}
-    .testi-author{display:flex;align-items:center;gap:12px;}
-    .t-av{width:38px;height:38px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy);font-size:0.85rem;}
-    .t-name{color:var(--white);font-weight:600;font-size:0.88rem;}
-    .t-role{color:rgba(255,255,255,0.45);font-size:0.76rem;}
-
-    /* RIGHT PANEL */
-    .right{width:460px;background:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:56px 46px;}
-    .form-hdr{margin-bottom:32px;}
-    .form-hdr h2{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--navy);margin-bottom:7px;}
-    .form-hdr p{color:var(--slate);font-size:0.88rem;}
-    .form-hdr p a{color:var(--gold);text-decoration:none;font-weight:600;}
-
-    /* TABS */
-    .tab-row{display:flex;background:rgba(10,22,40,0.08);border-radius:10px;padding:4px;margin-bottom:28px;}
-    .tab-btn{flex:1;padding:10px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:600;color:var(--slate);border-radius:7px;cursor:pointer;transition:all 0.2s;}
-    .tab-btn.active{background:var(--navy);color:var(--white);}
-
-    /* FORM */
-    .form-group{margin-bottom:18px;}
-    label{display:block;font-size:0.83rem;font-weight:600;color:var(--navy);margin-bottom:7px;}
-    input[type="email"],input[type="password"]{width:100%;padding:13px 15px;border:1.5px solid rgba(10,22,40,0.14);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.93rem;background:var(--white);color:var(--navy);outline:none;transition:border-color 0.2s;}
-    input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,160,23,0.1);}
-    .form-opts{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
-    .remember{display:flex;align-items:center;gap:7px;font-size:0.83rem;color:var(--slate);cursor:pointer;}
-    .remember input{accent-color:var(--gold);width:15px;height:15px;}
-    .forgot{color:var(--gold);text-decoration:none;font-size:0.83rem;font-weight:600;}
+    .nav-r{display:flex;gap:8px;align-items:center;}
+    .nav-r span{color:rgba(255,255,255,0.45);font-size:0.82rem;}
+    .nav-r a{color:var(--gold);text-decoration:none;font-size:0.82rem;font-weight:600;}
+    .page{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 68px);}
+    .left{background:var(--navy);padding:60px 7%;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+    .left::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(212,160,23,0.1) 0%,transparent 60%);}
+    .left-inner{position:relative;z-index:1;}
+    .left h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--white);margin-bottom:12px;line-height:1.25;}
+    .left h2 em{color:var(--gold);font-style:normal;}
+    .left p{color:rgba(255,255,255,0.55);font-size:0.9rem;line-height:1.75;margin-bottom:32px;}
+    .testi{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:22px;}
+    .testi-stars{color:var(--gold);font-size:0.9rem;margin-bottom:9px;}
+    .testi p{font-size:0.85rem;color:rgba(255,255,255,0.75);font-style:italic;margin-bottom:13px;}
+    .testi-auth{display:flex;align-items:center;gap:10px;}
+    .testi-av{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy);font-size:0.82rem;}
+    .testi-name{color:var(--white);font-size:0.82rem;font-weight:700;}
+    .testi-role{color:rgba(255,255,255,0.4);font-size:0.72rem;margin-top:1px;}
+    .right{padding:52px 8%;display:flex;align-items:center;justify-content:center;}
+    .form-box{width:100%;max-width:380px;}
+    .form-box h1{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--navy);margin-bottom:6px;}
+    .form-box .sub{color:var(--slate);font-size:0.88rem;margin-bottom:28px;}
+    .role-tabs{display:flex;background:rgba(10,22,40,0.06);border-radius:10px;padding:3px;margin-bottom:24px;}
+    .role-tab{flex:1;padding:9px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;color:var(--slate);border-radius:8px;cursor:pointer;transition:all 0.2s;}
+    .role-tab.active{background:var(--navy);color:#fff;}
+    .form-group{margin-bottom:16px;}
+    .form-group label{display:block;font-size:0.8rem;font-weight:600;color:var(--navy);margin-bottom:6px;}
+    .form-group input{width:100%;padding:11px 14px;border:1.5px solid rgba(10,22,40,0.13);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--navy);background:var(--cream);outline:none;transition:border-color 0.2s;}
+    .form-group input:focus{border-color:var(--gold);background:#fff;}
+    .forgot-row{display:flex;justify-content:flex-end;margin-top:-8px;margin-bottom:18px;}
+    .forgot{color:var(--gold);font-size:0.8rem;font-weight:600;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0;}
     .forgot:hover{text-decoration:underline;}
-    .btn-login{width:100%;padding:14px;background:var(--navy);color:var(--white);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.97rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
-    .btn-login:hover{background:var(--gold);color:var(--navy);}
-
-    /* DEMO HINT */
-    .demo-hint{background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);border-radius:10px;padding:14px 16px;margin-top:20px;}
-    .demo-hint p{font-size:0.8rem;color:var(--navy);line-height:1.6;}
+    .submit-btn{width:100%;padding:13px;background:var(--navy);color:#fff;border:none;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.2s;margin-bottom:13px;}
+    .submit-btn:hover{background:var(--gold);color:var(--navy);}
+    .alert{padding:10px 14px;border-radius:8px;font-size:0.83rem;margin-bottom:13px;display:none;}
+    .alert-err{background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.3);color:var(--red);}
+    .alert-suc{background:rgba(26,140,91,0.1);border:1px solid rgba(26,140,91,0.3);color:var(--green);}
+    .divider{text-align:center;color:var(--slate);font-size:0.8rem;margin-bottom:13px;position:relative;}
+    .divider::before,.divider::after{content:'';position:absolute;top:50%;width:38%;height:1px;background:rgba(10,22,40,0.1);}
+    .divider::before{left:0;}.divider::after{right:0;}
+    .reg-link{text-align:center;font-size:0.84rem;color:var(--slate);}
+    .reg-link a{color:var(--gold);font-weight:700;text-decoration:none;}
+    .demo-hint{background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);border-radius:10px;padding:13px 16px;margin-top:18px;}
+    .demo-hint p{font-size:0.78rem;color:var(--navy);line-height:1.7;}
     .demo-hint strong{color:var(--gold);}
 
-    /* ALERTS */
-    .alert{padding:11px 15px;border-radius:8px;font-size:0.86rem;margin-bottom:18px;display:none;}
-    .alert-error{background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.25);color:var(--red);}
-    .alert-success{background:rgba(26,140,91,0.1);border:1px solid rgba(26,140,91,0.25);color:var(--green);}
+    /* FORGOT PASSWORD MODAL */
+    .fw-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:3000;display:none;align-items:center;justify-content:center;padding:20px;}
+    .fw-overlay.open{display:flex;}
+    .fw-box{background:#fff;border-radius:18px;padding:32px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
+    .fw-icon{font-size:2.4rem;margin-bottom:13px;}
+    .fw-box h3{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);margin-bottom:7px;}
+    .fw-box p{color:var(--slate);font-size:0.84rem;margin-bottom:18px;line-height:1.6;}
+    .fw-input{width:100%;padding:11px 14px;border:1.5px solid rgba(10,22,40,0.14);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.9rem;margin-bottom:12px;outline:none;color:var(--navy);transition:border-color 0.2s;}
+    .fw-input:focus{border-color:var(--gold);}
+    .fw-btn{width:100%;padding:12px;background:var(--navy);color:#fff;border:none;border-radius:9px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;margin-bottom:9px;transition:all 0.2s;}
+    .fw-btn:hover{background:var(--gold);color:var(--navy);}
+    .fw-success{color:var(--green);font-size:0.83rem;display:none;margin-bottom:10px;padding:10px 12px;background:rgba(26,140,91,0.08);border-radius:8px;line-height:1.5;}
+    .fw-cancel{color:var(--slate);font-size:0.82rem;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;}
+    .fw-cancel:hover{color:var(--navy);}
 
-    @media(max-width:860px){.left{display:none;}.right{width:100%;}}
+    @media(max-width:760px){.page{grid-template-columns:1fr;}.left{display:none;}.right{padding:36px 6%;align-items:flex-start;}}
   </style>
 </head>
 <body>
+<nav>
+  <a href="index.html" class="nav-logo"><div class="logo-icon">T</div><span>Tutor<span class="con">Con</span></span></a>
+  <div class="nav-r"><span>New to TutorCon?</span><a href="register.html">Create an account →</a></div>
+</nav>
 
-<div class="left">
-  <div class="left-inner">
-    <a href="index.html" class="panel-logo">
-      <div class="logo-icon">T</div>
-      <span>Tutor<span class="con">Con</span></span>
-    </a>
-    <h1>Your grades.<br>Your <em>terms.</em></h1>
-    <p>Book a tutor who knows your exact course, at a time that actually works for you.</p>
-    <div class="testi">
-      <p>"I was failing Stats and couldn't find anyone at campus. Found a UB tutor on TutorCon in 20 minutes. Passed with a B+."</p>
-      <div class="testi-author">
-        <div class="t-av">KS</div>
-        <div>
-          <div class="t-name">Keamogetse Setlhare</div>
-          <div class="t-role">BUAN · BSc Computer Science</div>
+<div class="page">
+  <div class="left">
+    <div class="left-inner">
+      <h2>Gaborone's <em>smartest</em> tutoring platform.</h2>
+      <p>Connect with verified tutors from UB, BUAN, Botho, BAC, ABM, BCET, Limkokwing and more — all in one place.</p>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>"I was failing Stats and couldn't find anyone at campus. Found a UB tutor on TutorCon in 20 minutes. Passed with a B+."</p>
+        <div class="testi-auth">
+          <div class="testi-av">KS</div>
+          <div><div class="testi-name">Keamogetse S.</div><div class="testi-role">BUAN · BSc Computer Science</div></div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="form-box">
+      <h1>Welcome back</h1>
+      <p class="sub">Log in to your TutorCon account.</p>
+
+      <div class="role-tabs">
+        <button class="role-tab active" id="tabStudent" onclick="setRole('student')">🎓 Student</button>
+        <button class="role-tab" id="tabTutor" onclick="setRole('tutor')">👨‍🏫 Tutor</button>
+      </div>
+
+      <div class="alert alert-err" id="errAlert">❌ <span id="errMsg">Incorrect email or password.</span></div>
+      <div class="alert alert-suc" id="sucAlert">✅ Logged in! Redirecting…</div>
+
+      <div class="form-group"><label>Email Address</label><input type="email" id="emailIn" placeholder="your@email.com" autocomplete="email"/></div>
+      <div class="form-group"><label>Password</label><input type="password" id="passIn" placeholder="Your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+
+      <div class="forgot-row"><button class="forgot" onclick="openFW()">Forgot password?</button></div>
+
+      <button class="submit-btn" onclick="doLogin()">Log In →</button>
+      <div class="divider">or</div>
+      <div class="reg-link">Don't have an account? <a href="register.html">Sign up free</a></div>
+
+      <div class="demo-hint">
+        <p>🔑 <strong>Demo accounts:</strong><br>
+        Student: <strong>demo@tutorcon.bw</strong> / <strong>demo</strong><br>
+        Tutor: <strong>tutor@tutorcon.bw</strong> / <strong>tutor456</strong></p>
       </div>
     </div>
   </div>
 </div>
 
-<div class="right">
-  <div class="form-hdr">
-    <h2>Welcome back</h2>
-    <p>New here? <a href="register.html">Create a free account</a></p>
-  </div>
-
-  <div class="tab-row">
-    <button class="tab-btn active" onclick="setRole('student',this)">I'm a Student</button>
-    <button class="tab-btn" onclick="setRole('tutor',this)">I'm a Tutor</button>
-  </div>
-
-  <div class="alert alert-error" id="errAlert">❌ Email or password is incorrect. Try again.</div>
-  <div class="alert alert-success" id="sucAlert">✅ Logged in! Redirecting…</div>
-
-  <form id="loginForm" onsubmit="doLogin(event)">
-    <div class="form-group">
-      <label>Email Address</label>
-      <input type="email" id="emailIn" placeholder="you@university.ac.bw" required/>
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="passIn" placeholder="••••••••" required/>
-    </div>
-    <div class="form-opts">
-      <label class="remember"><input type="checkbox"/> Remember me</label>
-      <a href="#" class="forgot">Forgot password?</a>
-    </div>
-    <button type="submit" class="btn-login">Log In →</button>
-  </form>
-
-  <div class="demo-hint">
-    <p>🔑 <strong>Demo accounts:</strong><br>
-    Student: <strong>demo@tutorcon.bw</strong> / <strong>demo</strong><br>
-    Tutor: <strong>tutor@tutorcon.bw</strong> / <strong>tutor456</strong></p>
+<!-- FORGOT PASSWORD MODAL -->
+<div class="fw-overlay" id="fwOverlay">
+  <div class="fw-box">
+    <div class="fw-icon">🔑</div>
+    <h3>Reset Your Password</h3>
+    <p>Enter your email address and we'll send you a link to reset your password.</p>
+    <input class="fw-input" type="email" id="fwEmail" placeholder="your@email.com"/>
+    <div class="fw-success" id="fwSuccess">✅ If that email is registered with TutorCon, a reset link has been sent. Check your inbox.</div>
+    <button class="fw-btn" onclick="sendReset()">Send Reset Link</button>
+    <button class="fw-cancel" onclick="closeFW()">Cancel</button>
   </div>
 </div>
 
 <script>
-  let currentRole = 'student';
-  function setRole(r, btn) {
-    currentRole = r;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+let selectedRole = 'student';
+
+function setRole(r) {
+  selectedRole = r;
+  document.getElementById('tabStudent').classList.toggle('active', r === 'student');
+  document.getElementById('tabTutor').classList.toggle('active', r === 'tutor');
+}
+
+function doLogin() {
+  const email = document.getElementById('emailIn').value.trim().toLowerCase();
+  const pass  = document.getElementById('passIn').value;
+  document.getElementById('errAlert').style.display = 'none';
+  document.getElementById('sucAlert').style.display = 'none';
+
+  if (!email || !pass) {
+    document.getElementById('errMsg').textContent = 'Please enter your email and password.';
+    document.getElementById('errAlert').style.display = 'block'; return;
   }
 
-  function doLogin(e) {
-    e.preventDefault();
-    const email = document.getElementById('emailIn').value.trim();
-    const pass  = document.getElementById('passIn').value;
-    document.getElementById('errAlert').style.display = 'none';
-    document.getElementById('sucAlert').style.display = 'none';
+  const seeds = [
+    {email:'student@tutorcon.bw', password:'password123', role:'student', firstName:'Demo',  lastName:'Student'},
+    {email:'tutor@tutorcon.bw',   password:'tutor456',    role:'tutor',   firstName:'Demo',  lastName:'Tutor', tutorId:'seed_demo_tutor', plan:'premium'},
+    {email:'demo@tutorcon.bw',    password:'demo',        role:'student', firstName:'Demo',  lastName:'User'},
+  ];
 
-    // Seed demo accounts
-    const seeds = [
-      {email:'student@tutorcon.bw', password:'password123', role:'student', firstName:'Demo', lastName:'Student'},
-      {email:'tutor@tutorcon.bw',   password:'tutor456',    role:'tutor',   firstName:'Demo', lastName:'Tutor'},
-      {email:'demo@tutorcon.bw',    password:'demo',        role:'student', firstName:'Demo', lastName:'User'},
-    ];
+  const regTutors = JSON.parse(localStorage.getItem('tc_registered_tutors') || '[]');
+  const regMatch  = regTutors.find(t => t.email && t.email.toLowerCase() === email);
+  const seedMatch = seeds.find(a => a.email === email && a.password === pass);
 
-    // Check registered tutors
-    const regTutors = JSON.parse(localStorage.getItem('tc_registered_tutors')||'[]');
-    const regMatch  = regTutors.find(t => t.email === email);
+  if (seedMatch) {
+    localStorage.setItem('tc_user', JSON.stringify({
+      email, role:seedMatch.role,
+      firstName:seedMatch.firstName, lastName:seedMatch.lastName,
+      tutorId:seedMatch.tutorId||null, plan:seedMatch.plan||null
+    }));
+    document.getElementById('sucAlert').style.display = 'block';
+    setTimeout(() => {
+      location.href = seedMatch.role === 'tutor' ? 'tutor-dashboard.html' : 'student-dashboard.html';
+    }, 1000);
 
-    const seedMatch = seeds.find(a => a.email === email && a.password === pass);
+  } else if (regMatch) {
+    localStorage.setItem('tc_user', JSON.stringify({
+      email, role:'tutor',
+      firstName: regMatch.name ? regMatch.name.split(' ')[0] : 'Tutor',
+      lastName:  regMatch.name ? regMatch.name.split(' ').slice(1).join(' ') : '',
+      tutorId:   regMatch.id,
+      plan:      regMatch.plan || 'basic'
+    }));
+    document.getElementById('sucAlert').style.display = 'block';
+    setTimeout(() => { location.href = 'tutor-dashboard.html'; }, 1000);
 
-    if (seedMatch) {
-      localStorage.setItem('tc_user', JSON.stringify({email, role:seedMatch.role, firstName:seedMatch.firstName, lastName:seedMatch.lastName}));
-      document.getElementById('sucAlert').style.display = 'block';
-      setTimeout(() => {
-        location.href = seedMatch.role === 'tutor' ? 'tutor-dashboard.html' : 'tutors.html';
-      }, 1100);
-    } else if (regMatch) {
-      // Registered tutor login
-      localStorage.setItem('tc_user', JSON.stringify({
-        email, role:'tutor',
-        firstName: regMatch.name.split(' ')[0],
-        lastName:  regMatch.name.split(' ').slice(1).join(' '),
-        tutorId:   regMatch.id
-      }));
-      document.getElementById('sucAlert').style.display = 'block';
-      setTimeout(() => { location.href = 'tutor-dashboard.html'; }, 1100);
-    } else {
-      document.getElementById('errAlert').style.display = 'block';
-    }
+  } else {
+    document.getElementById('errMsg').textContent = 'Incorrect email or password. Try the demo accounts below.';
+    document.getElementById('errAlert').style.display = 'block';
   }
+}
+
+function openFW() {
+  const typed = document.getElementById('emailIn').value;
+  document.getElementById('fwEmail').value = typed || '';
+  document.getElementById('fwSuccess').style.display = 'none';
+  document.getElementById('fwEmail').style.borderColor = '';
+  document.getElementById('fwOverlay').classList.add('open');
+}
+function closeFW() {
+  document.getElementById('fwOverlay').classList.remove('open');
+}
+function sendReset() {
+  const e = document.getElementById('fwEmail').value.trim();
+  if (!e || !e.includes('@')) {
+    document.getElementById('fwEmail').style.borderColor = 'var(--red)'; return;
+  }
+  document.getElementById('fwEmail').style.borderColor = '';
+  document.getElementById('fwSuccess').style.display = 'block';
+  setTimeout(closeFW, 3000);
+}
+document.getElementById('fwOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('fwOverlay')) closeFW();
+});
+
+// Already logged in?
+const existing = JSON.parse(localStorage.getItem('tc_user') || 'null');
+if (existing) location.href = existing.role === 'tutor' ? 'tutor-dashboard.html' : 'student-dashboard.html';
 </script>
 </body>
 </html>
