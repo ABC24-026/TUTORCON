@@ -322,7 +322,7 @@ function doRegister(e) {
     localStorage.setItem('tc_user', JSON.stringify({email, role:'student', firstName, lastName}));
     document.getElementById('okAlert').textContent = '🎉 Account created! Redirecting to tutors…';
     document.getElementById('okAlert').style.display = 'block';
-    setTimeout(()=>{ location.href = 'tutors.html'; }, 1400);
+    setTimeout(()=>{ location.href = 'student-dashboard.html'; }, 1400);
   }
 }
 </script>
